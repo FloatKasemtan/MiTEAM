@@ -40,10 +40,10 @@ const routes = [{
             import ( /* webpackChunkName: "about" */ '../views/WorkerInfo.vue')
     },
     {
-        path: '/calendar',
-        name: 'Carendar',
+        path: '/events',
+        name: 'Event',
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/calendar.vue')
+            import ( /* webpackChunkName: "about" */ '../views/EventsList.vue')
     }
 
 ]

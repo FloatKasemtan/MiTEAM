@@ -6,7 +6,6 @@
         <v-row>
           <v-col cols="12" md="4">
             <v-text-field
-
               color="black"
               v-model="seach"
               label="Seach"

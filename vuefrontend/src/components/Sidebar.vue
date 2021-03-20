@@ -65,7 +65,7 @@ export default {
         {
           title: "Events",
           icon: "mdi-calendar ",
-          to: "/calendar",
+          to: "/events",
         },
         { title: "Check-in Table", icon: "mdi-account-box", to: "/check-in" },
         {
@@ -80,7 +80,4 @@ export default {
 </script>
 
 <style scoped>
-.navigation {
-  opacity: 0.9;
-}
 </style>
