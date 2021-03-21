@@ -49,8 +49,13 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item v-for="(item, index) in items" :key="index" link @click="assignTeam = item.title">
-                <v-list-item-title >{{ item.title }}</v-list-item-title>
+              <v-list-item
+                v-for="(item, index) in items"
+                :key="index"
+                link
+                @click="assignTeam = item"
+              >
+                <v-list-item-title>{{ item }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -102,7 +107,12 @@
                 <v-btn outlined fab text @click="event.finish = !event.finish">
                   <v-icon>mdi-check</v-icon>
                 </v-btn>
-                <v-btn text depressed @click="deleteEvent(event.name)" color="error">
+                <v-btn
+                  text
+                  depressed
+                  @click="deleteEvent(event.name)"
+                  color="error"
+                >
                   Delete
                 </v-btn>
               </v-col></v-card-actions
@@ -115,8 +125,10 @@
 </template>
 
 <script>
+import data from "../store/teamInfo";
 export default {
   data: (vm) => ({
+    items: data.teams.map(team=>team.name),
     valid: false,
     date: new Date().toISOString().substr(0, 10),
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
@@ -160,23 +172,17 @@ export default {
         finish: false,
       },
     ],
-    items: [
-      { title: "Team name 1" },
-      { title: "Team name 2" },
-      { title: "Team name 3" },
-      { title: "Team name n" },
-    ],
   }),
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
-    sortedItems: function() {
-        this.events.sort( ( a, b) => {
-            return new Date(a.deadLine) - new Date(b.deadLine);
-        });
-        return this.events;
-    }
+    sortedItems: function () {
+      this.events.sort((a, b) => {
+        return new Date(a.deadLine) - new Date(b.deadLine);
+      });
+      return this.events;
+    },
   },
 
   watch: {
@@ -220,9 +226,9 @@ export default {
 
 <style scoped>
 .finish {
-  border-left: 6px solid green;
+  border-left: 10px solid green;
 }
 .unfinish {
-  border-left: 6px solid red;
+  border-left: 10px solid red;
 }
 </style>

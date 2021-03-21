@@ -47,7 +47,7 @@
             stream
           ></v-progress-linear>
           <v-card-actions>
-            <v-btn outlined rounded text :to="{name:'WorkerInfo', params:{id: team.id,name: team.name}}"> more info </v-btn>
+            <v-btn outlined rounded text :to="{name:'WorkerInfo', params:{id: team.id}}"> more info </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
