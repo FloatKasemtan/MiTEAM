@@ -34,8 +34,8 @@ const routes = [{
             import ( /* webpackChunkName: "about" */ '../views/Ottable.vue')
     },
     {
-        path: '/userInfo',
-        name: 'Info',
+        path: '/workerInfo/:name',
+        name: 'WorkerInfo',
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/WorkerInfo.vue')
     },

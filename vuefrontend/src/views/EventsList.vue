@@ -44,13 +44,13 @@
         ><div class="text-center">
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark v-bind="attrs" v-on="on" class="mt-3">
-                 Select Team
+              <v-btn color="#5C6BC0" dark v-bind="attrs" v-on="on" class="mt-3">
+                Select Team
               </v-btn>
             </template>
             <v-list>
-              <v-list-item v-for="(item, index) in items" :key="index" link>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item v-for="(item, index) in items" :key="index" link @click="assignTeam = item.title">
+                <v-list-item-title >{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -62,48 +62,50 @@
           label="Assigned Team"
           class="ml-5"
         ></v-text-field>
-        </v-col
-      >
-      <v-btn :disabled="event == '' || assignTeam == ''" class="mt-5 ml-5" @click="addEvent"
+      </v-col>
+      <v-btn
+        :disabled="event == '' || assignTeam == ''"
+        class="mt-5 ml-5"
+        @click="addEvent"
         >ADD Event</v-btn
       >
     </v-row>
     <div>
-      <v-row v-for="event in events" :key="event.name">
+      <v-row v-for="event in sortedItems" :key="event.name">
         <v-card
-          width="90vw"
-          height="70px"
+          width="100vw"
           class="ma-5"
           :class="[event.finish ? 'finish' : 'unfinish']"
         >
           <v-row>
-            <v-col cols="12" md="2">
+            <v-col>
               <v-card-title>{{ event.name }}</v-card-title
               ><v-card-subtitle
                 >Start from {{ event.startDate }}</v-card-subtitle
               >
             </v-col>
-            <v-col cols="12" md="2"
+            <v-col
               ><v-card-title>Deadline</v-card-title
               ><v-card-subtitle>{{ event.deadLine }}</v-card-subtitle></v-col
             >
-            <v-col cols="12" md="2"
+            <v-col
               ><v-card-title>Team</v-card-title>
               <v-card-subtitle>{{ event.Team }}</v-card-subtitle>
-              </v-col
-            >
-            <v-col cols="12" md="2">
-              <v-card-title>Status</v-card-title
-              ><v-card-subtitle v-if="event.finish">finish</v-card-subtitle>
-              <v-card-subtitle v-else>unfinish</v-card-subtitle>
             </v-col>
-            <v-spacer></v-spacer>
-            <v-col
-              ><v-card-actions>
-                <v-btn outlined fab text @click="check(event.name)">
+            <v-col>
+              <v-card-title>Status</v-card-title
+              ><v-card-subtitle v-if="event.finish">Finish</v-card-subtitle>
+              <v-card-subtitle v-else>Unfinish</v-card-subtitle>
+            </v-col>
+            <v-card-actions class="mb-4">
+              <v-col>
+                <v-btn outlined fab text @click="event.finish = !event.finish">
                   <v-icon>mdi-check</v-icon>
                 </v-btn>
-              </v-card-actions></v-col
+                <v-btn text depressed @click="deleteEvent(event.name)" color="error">
+                  Delete
+                </v-btn>
+              </v-col></v-card-actions
             >
           </v-row>
         </v-card>
@@ -132,7 +134,7 @@ export default {
       {
         name: "event2",
         startDate: "03/18/2021",
-        deadLine: "03/20/2021",
+        deadLine: "04/20/2021",
         Team: "Apple",
         finish: false,
       },
@@ -159,16 +161,22 @@ export default {
       },
     ],
     items: [
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me 2" },
+      { title: "Team name 1" },
+      { title: "Team name 2" },
+      { title: "Team name 3" },
+      { title: "Team name n" },
     ],
   }),
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
+    sortedItems: function() {
+        this.events.sort( ( a, b) => {
+            return new Date(a.deadLine) - new Date(b.deadLine);
+        });
+        return this.events;
+    }
   },
 
   watch: {
@@ -178,7 +186,7 @@ export default {
   },
 
   methods: {
-    check(name) {
+    deleteEvent(name) {
       this.checked = name;
       this.events = this.events.filter((el) => el.name != this.checked);
     },
@@ -199,8 +207,9 @@ export default {
       } else {
         this.events.push({
           name: this.event,
-          startDate: this.dateFormatted,
+          startDate: new Date().toISOString().substr(0, 10),
           deadLine: this.dateFormatted,
+          Team: this.assignTeam,
           finish: false,
         });
       }

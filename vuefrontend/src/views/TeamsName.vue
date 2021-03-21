@@ -30,9 +30,6 @@
           </v-img>
           <v-card v-else color="grey" height="200px"> </v-card>
           <v-card-title>{{ team.name }}</v-card-title>
-          <v-card-subtitle class="pb-0">
-            {{ team.members }} Members
-          </v-card-subtitle>
 
           <v-card-subtitle v-if="team.progress == null" class="pb-0">
             Time to do some work?
@@ -50,7 +47,7 @@
             stream
           ></v-progress-linear>
           <v-card-actions>
-            <v-btn outlined rounded text to="/userInfo"> more info </v-btn>
+            <v-btn outlined rounded text :to="{name:'WorkerInfo', params:{id: team.id,name: team.name}}"> more info </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -94,6 +91,7 @@
 </template>
 
 <script>
+import info from "../store/teamInfo"
 export default {
   name: "TeamsName",
   data: () => ({
@@ -102,91 +100,10 @@ export default {
     addImg: "",
     dialog: false,
     warning: false,
-    teams: [
-      {
-        id: 1,
-        name: "Frozen Yogurt",
-        members: 159,
-        progress: 20,
-        img:
-          "https://storage.googleapis.com/gen-atmedia/3/2015/08/2bb3585735eedc2040f79a4609514e0e4af2ab3d.jpeg",
-      },
-      {
-        id: 2,
-        name: "Ice cream sandwich",
-        members: 237,
-        progress: 90,
-        img:
-          "https://hips.hearstapps.com/vidthumb/images/delish-giant-ice-cream-sandwich-cake-still002-1529699322.jpg?crop=0.716xw%3A0.718xh%3B0.151xw%2C0.134xh&resize=480%3A270",
-      },
-      {
-        id: 3,
-        name: "Eclair",
-        members: 262,
-        progress: 30,
-        img: "http://www.ndtv.com/cooks/images/chocolate.eclairs.jpg",
-      },
-      {
-        id: 4,
-        name: "Cupcake",
-        members: 305,
-        progress: 100,
-        img:
-          "https://hips.hearstapps.com/del.h-cdn.co/assets/18/07/1518475314-vanilla-cupcake-horizontal-.jpg",
-      },
-      {
-        id: 5,
-        name: "Gingerbread",
-        members: 356,
-        progress: 81,
-        img:
-          "https://www.superhealthykids.com/wp-content/uploads/2020/11/Gingerbread-Cookies-4sml.jpg",
-      },
-      {
-        id: 6,
-        name: "Jelly bean",
-        members: 375,
-        progress: 40,
-        img:
-          "https://www.atrafloor.com/app/uploads/2017/01/jelly-bean-vinyl-flooring-multicolour.jpg",
-      },
-      {
-        id: 7,
-        name: "Lollipop",
-        members: 392,
-        progress: 99,
-        img: "http://sc01.alicdn.com/kf/H012b3ea0f9f74449b3f33e3b6ba7a2e77.jpg",
-      },
-      {
-        id: 8,
-        name: "Honeycomb",
-        members: 408,
-        progress: 12,
-        img:
-          "https://www.grandturkishbazaar.com/wp-content/uploads/2019/01/turkish-honeycomb.jpg",
-      },
-      {
-        id: 9,
-        name: "Donut",
-        members: 452,
-        progress: 60,
-        img:
-          "https://www.starbucks.co.th/stb-media/2020/08/7.Glaze-Donut1080-1.png",
-      },
-      {
-        id: 10,
-        name: "KitKat",
-        members: 518,
-        progress: 50,
-        img:
-          "https://i.insider.com/5b5856a9c171cb21008b4639?width=1136&format=jpeg",
-      },
-    ],
-    currentId: 10,
   }),
   computed: {
     seachTeam: function () {
-      return this.teams.filter((team) => {
+      return info.teams.filter((team) => {
         return team.name.toLowerCase().includes(this.seach.toLowerCase());
       });
     },
@@ -197,10 +114,10 @@ export default {
         this.dialog = false;
         this.warning = true;
       } else {
-        this.teams.push({
+        info.teams.push({
           id: ++this.currentId,
           name: this.addInput,
-          members: 0,
+          members: [],
           progress: null,
           img: this.addImg,
         });

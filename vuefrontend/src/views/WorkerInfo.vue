@@ -3,7 +3,7 @@
     <h1 style="color: #31517d">
       <v-btn to="/team" class="ml-n16 mr-5" elevation="2" color="white" rounded
         >Back</v-btn
-      >"Team name"
+      >{{ this.$route.params.name }}
       <v-btn @click="editTeam" class="ml-5" elevation="2" rounded color="white"
         ><v-icon>mdi-clipboard-edit</v-icon></v-btn
       >
@@ -234,6 +234,7 @@
 </template>
 
 <script>
+import info from "../store/teamInfo"
 export default {
   name: "TeamsName",
   data: () => ({
@@ -261,112 +262,15 @@ export default {
       pic: "",
     },
 
-    members: [
-      {
-        id: 0,
-        name: "Liam	Olivia",
-        salary: 15900,
-        status: "worker",
-        period: 1,
-        contact: "sarasgmail.com",
-        pic:
-          "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
-      },
-      {
-        id: 1,
-        name: "Noah	Emma",
-        salary: 23700,
-        status: "worker",
-        period: 13,
-        contact: "gmail.com",
-        pic:
-          "https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half-caption/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=0hb44OrI",
-      },
-      {
-        id: 2,
-        name: "Oliver	Ava",
-        salary: 26200,
-        status: "worker",
-        period: 2,
-        contact: "gmail.com",
-        pic:
-          "https://qodebrisbane.com/wp-content/uploads/2019/07/This-is-not-a-person-2-1.jpeg",
-      },
-      {
-        id: 3,
-        name: "William	Sophia",
-        salary: 30500,
-        status: "worker",
-        period: 1,
-        contact: "gmail.com",
-        pic:
-          "https://play-images-prod-cms.tech.tvnz.co.nz/api/v1/web/image/content/dam/images/entertainment/shows/p/person-of-interest/personofinterest_coverimg.png.2017-03-08T11:21:33+13:00.jpg?width=960&height=540",
-      },
-      {
-        id: 4,
-        name: "Elijah	Isabella",
-        salary: 35600,
-        status: "worker",
-        period: 5,
-        contact: "gmail.com",
-        pic:
-          "https://cdn.now.howstuffworks.com/media-content/0b7f4e9b-f59c-4024-9f06-b3dc12850ab7-1920-1080.jpg",
-      },
-      {
-        id: 5,
-        name: "James	Charlotte",
-        salary: 37500,
-        status: "worker",
-        period: 3,
-        contact: "gmail.com",
-        pic:
-          "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters:format(jpg)/https://specials-images.forbesimg.com/imageserve/5f469ea85cc82fc8d6083f05/0x0.jpg",
-      },
-      {
-        id: 6,
-        name: "Benjamin	Amelia",
-        salary: 39200,
-        status: "worker",
-        period: 1,
-        contact: "gmail.com",
-        pic:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNsO8UKeJSffZI-UxtGBNbV_VHSel-RHHtog&usqp=CAU",
-      },
-      {
-        id: 7,
-        name: "Lucas	Mia",
-        salary: 40800,
-        status: "intern student",
-        period: 1,
-        contact: "gmail.com",
-        pic:
-          "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80",
-      },
-      {
-        id: 8,
-        name: "Mason	Harper",
-        salary: 45200,
-        status: "intern student",
-        period: 1,
-        contact: "gmail.com",
-        pic:
-          "http://www.scottcochrane.com/wp-content/uploads/2018/05/One-Person-2.jpg",
-      },
-      {
-        id: 9,
-        name: "Ethan	Evelyn",
-        salary: 51800,
-        status: "intern student",
-        period: 1,
-        contact: "gmail.com",
-        pic:
-          "https://www.guinnessworldrecords.com/Images/Greta-Thunberg-youngest-time-person-of-the-yearthumbnail_tcm25-603423.jpg",
-      },
-    ],
   }),
   computed: {
+    destination(){
+      return info.teams.find(
+        team => team.id === this.$route.params.id
+      )
+    },
     seachMember: function () {
-      return this.members.filter((member) => {
+      return info.teams[this.$route.params.id-1].members.filter((member) => {
         return member.name.toLowerCase().includes(this.seach.toLowerCase());
       });
     },
