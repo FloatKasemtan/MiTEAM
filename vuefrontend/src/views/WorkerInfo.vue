@@ -1,18 +1,21 @@
 <template>
   <section class="destination">
     <div class="mx-16">
-      <h1 style="color: #31517d">
+      <h1 class="d-flex">
         <v-btn
           to="/team"
-          class="ml-n16 mr-5"
+          class="ml-n16 mr-5 mt-5"
           elevation="2"
           color="white"
           rounded
-          >Back</v-btn
-        >{{this.team.name }}
+          >Back
+        </v-btn>
+        <div class="headerMember">
+          {{ this.team.name }}
+        </div>
         <v-btn
           @click="editTeam"
-          class="ml-5"
+          class="ml-5 mt-5"
           elevation="2"
           rounded
           color="white"
@@ -106,7 +109,12 @@
         <v-card>
           <v-card-text class="pa-5">
             <h1>Edit Team</h1>
-            <v-text-field label="Team Name"> </v-text-field>
+            <v-text-field
+              label="Team Name"
+              v-model="this.team.name"
+              color="#31517d"
+            >
+            </v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-btn text color="#3949AB"> Comfirm Edit </v-btn>
@@ -235,7 +243,7 @@
       <v-dialog v-model="dialogDelete" max-width="500px">
         <v-card>
           <v-card-title class="headline"
-            >Are you sure you want to delete this item?</v-card-title
+            >Are you sure you want to delete this member?</v-card-title
           >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -282,11 +290,11 @@ export default {
     },
   }),
   computed: {
-    nameTeam: function() {
-      const id = this.$route.params.id
-      const result = (info.teams.find((team) => team.id == id))
-      if (!result){
-        return ''
+    nameTeam: function () {
+      const id = this.$route.params.id;
+      const result = info.teams.find((team) => team.id == id);
+      if (!result) {
+        return "";
       }
       return result.name;
     },
@@ -342,8 +350,14 @@ export default {
       this.members = [...this.members];
     },
   },
-  mounted(){
-    this.team = info.teams.find((team) => team.id == this.$route.params.id)
-  }
+  mounted() {
+    this.team = info.teams.find((team) => team.id == this.$route.params.id);
+  },
 };
 </script>
+<style scoped>
+.headerMember {
+  font-size: 50px;
+  color: #31517d;
+}
+</style>

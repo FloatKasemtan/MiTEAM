@@ -1,6 +1,6 @@
 <template>
   <div transition="scale-transition" class="mx-16">
-    <h1>Events</h1>
+    <h1 class="header">Events</h1>
     <v-row>
       <v-col cols="12" md="3">
         <v-text-field
@@ -78,8 +78,9 @@
     <div>
       <v-row v-for="event in sortedItems" :key="event.name">
         <v-card
+          @click="event.finish = !event.finish"
           width="100vw"
-          class="ma-5"
+          class="ma-5 eventItem"
           :class="[event.finish ? 'finish' : 'unfinish']"
         >
           <v-row>
@@ -104,9 +105,6 @@
             </v-col>
             <v-card-actions class="mb-4">
               <v-col>
-                <v-btn outlined fab text @click="event.finish = !event.finish">
-                  <v-icon>mdi-check</v-icon>
-                </v-btn>
                 <v-btn
                   text
                   depressed
@@ -128,7 +126,7 @@
 import data from "../store/teamInfo";
 export default {
   data: (vm) => ({
-    items: data.teams.map(team=>team.name),
+    items: data.teams.map((team) => team.name),
     valid: false,
     date: new Date().toISOString().substr(0, 10),
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
@@ -230,5 +228,11 @@ export default {
 }
 .unfinish {
   border-left: 10px solid red;
+}
+.eventItem {
+  transition: 0.3s ease-out;
+}
+.eventItem:hover {
+  transform: scale(1.02);
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="mx-16">
     <v-card>
       <v-card-title>
-        <h1>Check-in Table</h1>
+        <h1 class="header">Check-in Table</h1>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
