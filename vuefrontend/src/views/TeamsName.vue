@@ -1,7 +1,7 @@
 <template>
   <div class="mx-16">
     <div class="ml-8">
-      <h1 style="color: #31517d">Teams List</h1>
+      <h1 class="header" style="color: #31517d">Teams List</h1>
       <div>
         <v-row>
           <v-col cols="12" md="4">
@@ -20,7 +20,8 @@
 
     <v-row class="pa-5">
       <v-col cols="12" md="3" v-for="team in seachTeam" :key="team.id">
-        <v-card class="mx-auto" min-width="230" max-width="400" :elevation="10">
+        <v-hover v-slot="{ hover }">
+        <v-card class="mx-auto team" :class="{ 'on-hover': hover }" min-width="230" max-width="400" :elevation="hover ? 12 : 2" >
           <v-img
             v-if="team.img != ''"
             class="white--text justify-space-between"
@@ -50,6 +51,7 @@
             <v-btn outlined rounded text :to="{name:'WorkerInfo', params:{id: team.id}}"> more info </v-btn>
           </v-card-actions>
         </v-card>
+        </v-hover>
       </v-col>
     </v-row>
 
@@ -128,3 +130,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.v-card {
+  transition: opacity .4s ease-in-out;
+}
+.team:not(.on-hover) {
+  opacity: 0.75;
+ }
+ .show-btns {
+  color: rgba(255, 255, 255, 1) !important;
+}
+.header{
+}
+</style>

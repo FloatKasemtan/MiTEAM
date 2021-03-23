@@ -1,57 +1,56 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import TeamsName from '../views/TeamsName.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import TeamsName from "../views/TeamsName.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [{
-        path: '/',
-        name: 'Login',
+        path: "/",
+        name: "Login",
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/login.vue'),
+            import ( /* webpackChunkName: "about" */ "../views/login.vue"),
         meta: {
-            layout: 'auth'
-        }
+            layout: "auth",
+        },
     },
     {
-        path: '/team',
-        name: 'TeamList',
-        component: TeamsName
+        path: "/team",
+        name: "TeamList",
+        component: TeamsName,
     },
     {
-        path: '/check-in',
-        name: 'Check-in',
+        path: "/check-in",
+        name: "Check-in",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/Check-In_table.vue')
+            import ("../views/Check-In_table.vue"),
     },
     {
-        path: '/ot-timer',
-        name: 'OT-Timer',
+        path: "/ot-timer",
+        name: "OT-Timer",
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/Ottable.vue')
+            import ("../views/Ottable.vue"),
     },
     {
-        path: '/workerInfo/:id',
-        name: 'WorkerInfo',
+        path: "/workerInfo/:id",
+        name: "WorkerInfo",
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/WorkerInfo.vue')
+            import ("../views/WorkerInfo.vue"),
     },
     {
-        path: '/events',
-        name: 'Event',
+        path: "/events",
+        name: "Event",
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/EventsList.vue')
-    }
-
-]
+            import ("../views/EventsList.vue"),
+    },
+];
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     base: process.env.BASE_URL,
-    routes
-})
+    routes,
+});
 
-export default router
+export default router;

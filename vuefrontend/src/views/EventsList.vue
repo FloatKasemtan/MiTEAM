@@ -1,5 +1,5 @@
 <template>
-  <div transition="scale-transition">
+  <div transition="scale-transition" class="mx-16">
     <h1>Events</h1>
     <v-row>
       <v-col cols="12" md="3">
@@ -40,7 +40,7 @@
           ></v-date-picker>
         </v-menu>
       </v-col>
-      <v-col cols="12" md="2" class="d-flex"
+      <v-col cols="12" md="3" class="d-flex"
         ><div class="text-center">
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">

@@ -2,7 +2,7 @@
   <div style="height: 100vh" class="d-flex align-center">
     <v-card width="40%" elevation="0" class="ma-16">
       <v-card-title style="color: #31517d" class="mb-2"
-        ><h1>MiTEAM</h1></v-card-title
+        ><h1 class="logo">MiTEAM</h1></v-card-title
       >
       <v-card-subtitle>Manage Your Team better than before</v-card-subtitle>
       <v-form ref="form" v-model="valid" lazy-validation>
@@ -698,5 +698,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.logo{
+  font-family: Train One;
+}
 </style>

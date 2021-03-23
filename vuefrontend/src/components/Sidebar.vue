@@ -16,7 +16,7 @@
             src="../images/logo/logo2nd512.png"
           ></v-img>
           <v-list-item-title>
-            <v-list-item-title><h1>MiTEAM</h1></v-list-item-title>
+            <v-list-item-title><h1 class="logo">MiTEAM</h1></v-list-item-title>
           </v-list-item-title>
         </v-list-item-icon>
       </v-list>
@@ -80,4 +80,9 @@ export default {
 </script>
 
 <style scoped>
+.logo{
+  font-size: 2em;
+  color: transparent;
+  -webkit-text-stroke: 0.7px white;
+}
 </style>
