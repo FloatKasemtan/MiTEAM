@@ -2,7 +2,7 @@
   <div class="mx-16">
     <v-card>
       <v-card-title>
-        <h1 class="header">Overtime Worker</h1>
+        <Header :pageName="pageName" />
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -13,21 +13,22 @@
           color="black"
         ></v-text-field>
       </v-card-title>
-      <v-data-table
-        :headers="headers"
-        :items="employee"
-        :search="search"
-        :items-per-page="15"
-      >
-      </v-data-table>
+      <DataTable :headers="headers" :employee="employee" :search="search" />
     </v-card>
   </div>
 </template>
 
 <script>
+import Header from "../components/Header"
+import DataTable from "../components/OtWorker/DataTable"
 export default {
+  components:{
+    Header,
+    DataTable
+  },
   data() {
     return {
+      pageName: "Overtime Worker",
       search: "",
       headers: [
         {
@@ -40,6 +41,7 @@ export default {
         { text: "Contact", value: "contact" },
         { text: "OT done (hour)", value: "time" },
       ],
+      //MockData for DataTable
       employee: [
         {
           team: "Frozen Yogurt",

@@ -42,8 +42,6 @@ export default {
   data: () => ({
     addInput: "",
     addImg: "",
-    dialog: false,
-    warning: false,
   }),
   props: {
     dialog: Boolean,

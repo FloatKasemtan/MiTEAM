@@ -1,6 +1,6 @@
 <template>
   <div transition="scale-transition" class="mx-16">
-    <h1 class="header">Events</h1>
+    <Header :pageName="pageName" />
     <v-row>
       <v-col cols="12" md="3">
         <v-text-field
@@ -123,9 +123,14 @@
 </template>
 
 <script>
+import Header from "../components/Header";
 import data from "../store/teamInfo";
 export default {
+  components:{
+    Header
+  },
   data: (vm) => ({
+    pageName: "Events",
     items: data.teams.map((team) => team.name),
     valid: false,
     date: new Date().toISOString().substr(0, 10),

@@ -2,7 +2,7 @@
   <div class="mx-16">
     <v-card>
       <v-card-title>
-        <h1 class="header">Check-in Table</h1>
+        <Header :pageName="pageName" />
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -13,23 +13,7 @@
           color="black"
         ></v-text-field>
       </v-card-title>
-      <v-data-table
-        :headers="headers"
-        :items="employee"
-        :search="search"
-        :items-per-page="15"
-        ><template #item.status="{ item }">
-          <v-chip v-if="item.status%1==0" :color="getColor(item.status)" dark>
-            {{ item.status }}.00 <div v-if="item.status>12.00">PM</div><div v-else>AM</div>
-          </v-chip>
-          <v-chip v-else-if="item.status*10%1==0" :color="getColor(item.status)" dark>
-            {{ item.status }}0 <div v-if="item.status>12.00">PM</div><div v-else>AM</div>
-          </v-chip>
-          <v-chip v-else :color="getColor(item.status)" dark>
-            {{ item.status }} <div v-if="item.status>12.00">PM</div><div v-else>AM</div>
-          </v-chip>
-        </template>
-      </v-data-table>
+      <DataTable :headers="headers" :employee="employee" :search="search" />
     </v-card>
   </div>
 </template>
@@ -38,9 +22,16 @@
 </style>
 
 <script>
+import Header from "../components/Header";
+import DataTable from "../components/CheckInTable/DataTable";
 export default {
+  components:{
+    Header,
+    DataTable
+  },
   data() {
     return {
+      pageName: "Check-in Table",
       search: "",
       headers: [
         {
@@ -53,6 +44,7 @@ export default {
         { text: "Contact", value: "contact" },
         { text: "Check-in Status", value: "status" },
       ],
+      //MockData for Table
       employee: [
         {
           team: "Frozen Yogurt",
@@ -146,13 +138,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    getColor(status) {
-      if (status > 9) return "orange";
-      else return "green";
-    },
-
   },
 };
 </script>

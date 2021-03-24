@@ -1,7 +1,7 @@
 <template>
   <div class="mx-16">
     <div class="ml-8">
-      <h1 class="header">Teams List</h1>
+      <Header :pageName="pageName" />
       <div>
         <v-row>
           <v-col cols="12" md="4">
@@ -23,16 +23,19 @@
 </template>
 
 <script>
+import Header from "../components/Header";
 import info from "../store/teamInfo";
 import Teamslist from "../components/TeamsName/TeamsList";
 import Dialog from "../components/TeamsName/Dialog";
 export default {
   name: "TeamsName",
   components: {
+    Header,
     Teamslist,
     Dialog,
   },
   data: () => ({
+    pageName: "Teams List",
     seach: "",
     isActive: false,
     dialog: false,

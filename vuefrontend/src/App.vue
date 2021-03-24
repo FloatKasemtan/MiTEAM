@@ -12,8 +12,4 @@ export default {
 }
 </script>
 <style>
-.header {
-  font-size: 60px;
-  color: #31517d;
-}
 </style>

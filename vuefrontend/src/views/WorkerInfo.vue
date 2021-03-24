@@ -145,14 +145,16 @@
               prepend-icon="mdi-currency-usd"
               @keyup.enter="add"
             ></v-text-field>
-            <v-text-field
+            <v-select
+              :items="statusItems"
+              dense
               class="pa-2"
               label="Status"
               color="black"
               v-model="addMember.status"
               prepend-icon="mdi-list-status"
               @keyup.enter="add"
-            ></v-text-field>
+            ></v-select>
             <v-text-field
               class="pa-2"
               label="Email"
@@ -200,14 +202,16 @@
               prepend-icon="mdi-currency-usd"
               @keyup.enter="editConfirm(editMember.id)"
             ></v-text-field>
-            <v-text-field
+            <v-select
+              :items="statusItems"
+              dense
               class="pa-2"
               label="Status"
               color="black"
               v-model="editMember.status"
               prepend-icon="mdi-list-status"
               @keyup.enter="editConfirm(editMember.id)"
-            ></v-text-field>
+            ></v-select>
             <v-text-field
               class="pa-2"
               label="Email"
@@ -272,6 +276,7 @@ export default {
     dialogDelete: false,
     warning: false,
     seach: "",
+    statusItems: ["Worker", "Intern Student", "Part-Time"],
 
     addMember: {
       name: "",
