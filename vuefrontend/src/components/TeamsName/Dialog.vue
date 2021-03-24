@@ -1,0 +1,74 @@
+<template>
+  <div>
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-card>
+        <v-card-text>
+          <h1 class="pt-5">Create new Team</h1>
+          <v-text-field
+            class="pa-5"
+            label="Team Name"
+            color="black"
+            v-model="addInput"
+            prepend-icon="mdi-account-group"
+            @keyup.enter="addTeam"
+          ></v-text-field>
+          <v-text-field
+            class="pa-5"
+            label="Insert image url"
+            color="black"
+            v-model="addImg"
+            prepend-icon="mdi-camera"
+            @keyup.enter="addTeam"
+          ></v-text-field>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text color="#3949AB" @click="addTeam()"> Add Team </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="warning" max-width="300px">
+      <v-alert border="bottom" elevation="10" type="warning" class="mb-0"
+        >insert Team name first!</v-alert
+      >
+    </v-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    addInput: "",
+    addImg: "",
+    dialog: false,
+    warning: false,
+  }),
+  props: {
+    dialog: Boolean,
+    warning: Boolean,
+  },
+  methods: {
+    addTeam: function () {
+      if (this.addInput === "") {
+        this.dialog = false;
+        this.warning = true;
+      } else {
+        info.teams.push({
+          id: ++this.currentId,
+          name: this.addInput,
+          members: [],
+          progress: null,
+          img: this.addImg,
+        });
+        this.addInput = "";
+        this.dialog = false;
+      }
+    },
+  },
+};
+</script>
+
+<style>
+</style>
