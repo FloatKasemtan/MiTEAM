@@ -2,6 +2,15 @@ export default {
     teams: [{
             id: 1,
             name: "Frozen Yogurt",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [{
                     id: 0,
                     name: "Liam	Olivia",
@@ -99,6 +108,15 @@ export default {
         {
             id: 2,
             name: "Ice cream sandwich",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [{
                     id: 0,
                     name: "Liam	Olivia",
@@ -133,6 +151,15 @@ export default {
         {
             id: 3,
             name: "Eclair",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [],
             progress: 30,
             img: "http://www.ndtv.com/cooks/images/chocolate.eclairs.jpg",
@@ -140,6 +167,15 @@ export default {
         {
             id: 4,
             name: "Cupcake",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [],
             progress: 100,
             img: "https://hips.hearstapps.com/del.h-cdn.co/assets/18/07/1518475314-vanilla-cupcake-horizontal-.jpg",
@@ -154,6 +190,15 @@ export default {
         {
             id: 6,
             name: "Jelly bean",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [],
             progress: 40,
             img: "https://www.atrafloor.com/app/uploads/2017/01/jelly-bean-vinyl-flooring-multicolour.jpg",
@@ -161,6 +206,15 @@ export default {
         {
             id: 7,
             name: "Lollipop",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [],
             progress: 99,
             img: "http://sc01.alicdn.com/kf/H012b3ea0f9f74449b3f33e3b6ba7a2e77.jpg",
@@ -168,6 +222,15 @@ export default {
         {
             id: 8,
             name: "Honeycomb",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [],
             progress: 12,
             img: "https://www.grandturkishbazaar.com/wp-content/uploads/2019/01/turkish-honeycomb.jpg",
@@ -175,6 +238,15 @@ export default {
         {
             id: 9,
             name: "Donut",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [],
             progress: 60,
             img: "https://www.starbucks.co.th/stb-media/2020/08/7.Glaze-Donut1080-1.png",
@@ -182,9 +254,18 @@ export default {
         {
             id: 10,
             name: "KitKat",
+            manager: {
+                id: 0,
+                name: "Liam	Olivia",
+                salary: 15900,
+                status: "worker",
+                period: 1,
+                contact: "sarasgmail.com",
+                pic: "https://mindbodygreen-res.cloudinary.com/images/w_767,q_auto:eco,f_auto,fl_lossy/usr/RetocQT/sarah-fielding.jpg",
+            },
             members: [],
             progress: 50,
             img: "https://i.insider.com/5b5856a9c171cb21008b4639?width=1136&format=jpeg",
         },
     ],
-}
+};
