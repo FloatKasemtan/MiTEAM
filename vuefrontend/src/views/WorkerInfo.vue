@@ -51,15 +51,15 @@
             min-width="190"
             max-width="500"
             outlined
-            class="rounded-xl"
-            :elevation="10"
+            style="border-radius: 15px"
+            elevation="2"
           >
             <v-list-item three-line>
               <v-list-item-avatar
                 tile
                 size="100"
                 color="grey"
-                class="rounded-xl"
+                style="border-radius: 15px"
                 ><v-img
                   v-if="member.pic != ''"
                   :src="member.pic"

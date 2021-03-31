@@ -25,9 +25,9 @@
 import Header from "../components/Header";
 import DataTable from "../components/CheckInTable/DataTable";
 export default {
-  components:{
+  components: {
     Header,
-    DataTable
+    DataTable,
   },
   data() {
     return {
@@ -42,7 +42,8 @@ export default {
         },
         { text: "Name", value: "name" },
         { text: "Contact", value: "contact" },
-        { text: "Check-in Status", value: "status" },
+        { text: "Check-in time", value: "in" },
+        { text: "Check-out time", value: "out" },
       ],
       //MockData for Table
       employee: [
@@ -50,91 +51,106 @@ export default {
           team: "Frozen Yogurt",
           name: "John",
           contact: "@gmail.com",
-          status: 9.00,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "Gingerbread",
           name: "Mary",
           contact: "@gmail.com",
-          status: 10.00,
+          in: 9.0,
+          out: 16.55,
         },
         {
           team: "Frozen Yogurt",
           name: "Sea",
           contact: "@gmail.com",
-          status: 11,
+          in: 9.0,
+          out: 18.09,
         },
         {
           team: "Gingerbread",
           name: "Pete",
           contact: "@gmail.com",
-          status: 12,
+          in: 9.0,
+          out: 17.59,
         },
         {
           team: "Gingerbread",
           name: "Evan",
           contact: "@gmail.com",
-          status: 15,
+          in: 9.0,
+          out: 20,
         },
         {
           team: "Frozen Yogurt",
           name: "Isac",
           contact: "@gmail.com",
-          status: 9,
+          in: 9.0,
+          out: 18,
         },
         {
           team: "Frozen Yogurt",
           name: "Jess",
           contact: "@gmail.com",
-          status: 8.45,
+          in: 9.0,
+          out: 16,
         },
         {
           team: "KitKat",
           name: "Oven",
           contact: "@gmail.com",
-          status: 8,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "Donut",
           name: "Tibb",
           contact: "@gmail.com",
-          status: 8,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "KitKat",
           name: "Pop",
           contact: "@gmail.com",
-          status: 8 ,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "Frozen Yogurt",
           name: "Isac",
           contact: "@gmail.com",
-          status: 8,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "Frozen Yogurt",
           name: "Jess",
           contact: "@gmail.com",
-          status: 8,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "KitKat",
           name: "Oven",
           contact: "@gmail.com",
-          status: 10,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "Donut",
           name: "Tibb",
           contact: "@gmail.com",
-          status: 9.30,
+          in: 9.0,
+          out: 17,
         },
         {
           team: "KitKat",
           name: "Pop",
           contact: "@gmail.com",
-          status: 10.50,
+          in: 9.0,
+          out: 17,
         },
       ],
     };
