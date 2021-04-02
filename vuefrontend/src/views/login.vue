@@ -5,41 +5,107 @@
         ><h1 class="logo">MiTEAM</h1></v-card-title
       >
       <v-card-subtitle>Manage Your Team better than before</v-card-subtitle>
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field
-          v-model="username"
-          :rules="nameRules"
-          prepend-icon="mdi-account"
-          label="username"
-          required
-          color="#31517d"
-          class="my-3"
-          clearable
-          clear-icon="mdi-close-circle"
-        ></v-text-field>
+      <v-tabs v-model="tab" color="#31517d">
+        <v-tab> login </v-tab>
+        <v-tab> sign-up </v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="tab">
+        <v-tab-item>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-text-field
+              v-model="username"
+              :rules="nameRules"
+              prepend-icon="mdi-account"
+              label="username"
+              required
+              color="#31517d"
+              class="my-3"
+              clearable
+              clear-icon="mdi-close-circle"
+            ></v-text-field>
 
-        <v-text-field
-          v-model="password"
-          :rules="passRules"
-          prepend-icon="mdi-key"
-          label="password"
-          required
-          color="#31517d"
-          class="my-3"
-          :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show3 ? 'text' : 'password'"
-          @click:append="show3 = !show3"
-        ></v-text-field>
-      </v-form>
-      <v-btn
-        block
-        :disabled="!valid"
-        color="#31517D"
-        class="mr-4 rounded-xl white--text"
-        @click="validate"
-      >
-        SIGN IN
-      </v-btn>
+            <v-text-field
+              v-model="password"
+              :rules="passRules"
+              prepend-icon="mdi-key"
+              label="password"
+              required
+              color="#31517d"
+              class="my-3"
+              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="showPass ? 'text' : 'password'"
+              @click:append="showPass = !showPass"
+            ></v-text-field>
+          </v-form>
+          <v-btn
+            block
+            :disabled="!valid"
+            color="#31517D"
+            class="mr-4 rounded-xl white--text"
+            @click="validate"
+          >
+            SIGN IN
+          </v-btn>
+        </v-tab-item>
+        <v-tab-item>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-text-field
+              v-model="usernameRegis"
+              :rules="nameRules"
+              prepend-icon="mdi-account"
+              label="username"
+              required
+              color="#31517d"
+              class="my-3"
+              clearable
+              clear-icon="mdi-close-circle"
+            ></v-text-field>
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              prepend-icon="mdi-mail"
+              label="E-mail"
+              required
+              color="#31517d"
+              class="my-3"
+              clearable
+              clear-icon="mdi-close-circle"
+            ></v-text-field>
+
+            <v-text-field
+              v-model="passwordRegis"
+              :rules="passRules"
+              prepend-icon="mdi-key"
+              label="password"
+              required
+              color="#31517d"
+              class="my-3"
+              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="showPass ? 'text' : 'password'"
+              @click:append="showPass = !showPass"
+            ></v-text-field>
+            <v-text-field
+              v-model="repassword"
+              :rules="passRules"
+              prepend-icon="mdi-key"
+              label="re enter password"
+              required
+              color="#31517d"
+              class="my-3"
+              :type="'password'"
+            ></v-text-field>
+          </v-form>
+          <v-btn
+            block
+            :disabled="!valid"
+            color="#31517D"
+            class="mr-4 rounded-xl white--text"
+            @click="register"
+          >
+            SIGN UP
+          </v-btn>
+        </v-tab-item>
+      </v-tabs-items>
     </v-card>
     <v-card
       width="60%"
@@ -650,9 +716,14 @@
         />
       </svg>
     </v-card>
-    <v-dialog v-model="wrongUser" width="300px" >
+    <v-dialog v-model="wrongUser" width="300px">
       <v-alert type="error" elevation="10" class="mb-0" border="bottom"
-        >Your {{wrongData}} is incorrect!</v-alert
+        >Your {{ wrongData }} is incorrect!</v-alert
+      >
+    </v-dialog>
+    <v-dialog v-model="passMatch" width="300px">
+      <v-alert type="error" elevation="10" class="mb-0" border="bottom"
+        >Your password not match!</v-alert
       >
     </v-dialog>
   </div>
@@ -664,34 +735,49 @@ export default {
   data: () => ({
     valid: true,
     wrongUser: false,
+    passMatch: false,
     wrongData: "",
     username: "",
-    show3: false,
+    showPass: false,
+    tab: null,
     nameRules: [
       (v) => !!v || "username is required",
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
     password: "",
     passRules: [(v) => !!v || "password is required"],
+    usernameRegis: "",
+    email: "",
+    emailRules: [(v) => !!v || "E-mail is required"],
+    passwordRegis: "",
+    repassword: "",
   }),
   methods: {
     validate() {
       this.$refs.form.validate();
       if (this.username == "" && this.password == "") {
-
-      }
-      else if (this.username == "admin") {
+      } else if (this.username == "admin") {
         if (this.password == "111") {
           this.$router.push("/team");
         } else {
           this.password = this.username = "";
-          this.wrongData = 'password';
+          this.wrongData = "password";
           this.wrongUser = true;
         }
-      }else {
+      } else {
         this.password = this.username = "";
-        this.wrongData = 'username';
+        this.wrongData = "username";
         this.wrongUser = true;
+      }
+    },
+    register() {
+      if (this.repassword == this.passwordRegis) {
+      } else {
+        this.passMatch = true;
+        this.passwordRegis = "";
+        this.repassword = "";
+        this.usernameRegis = "";
+        this.email = "";
       }
     },
   },
@@ -699,7 +785,7 @@ export default {
 </script>
 
 <style scoped>
-.logo{
+.logo {
   font-family: Train One;
 }
 </style>
