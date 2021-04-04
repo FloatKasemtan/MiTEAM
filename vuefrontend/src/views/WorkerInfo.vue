@@ -1,16 +1,12 @@
 <template>
   <section class="destination">
-    <div class="mx-16">
-      <h1 class="d-flex">
-        <v-btn
-          to="/team"
-          class="ml-n16 mr-5 mt-5"
-          elevation="2"
-          color="white"
-          rounded
-          >Back
-        </v-btn>
-        <div class="headerMember">
+    <h1 class="d-flex ml-7">
+        <v-btn icon to="/team" class="mt-5 pa-5"
+          ><v-icon elevation="2" color="black" large
+            >mdi-chevron-left
+          </v-icon></v-btn
+        >
+        <div class="headerMember ml-5">
           {{ this.team.name }}
         </div>
         <v-btn
@@ -22,6 +18,7 @@
           ><v-icon>mdi-clipboard-edit</v-icon></v-btn
         >
       </h1>
+    <div class="mx-16">
       <div>
         <v-row class="justify-space-between">
           <v-col cols="12" md="4">
@@ -31,6 +28,14 @@
               label="Seach"
               class="ml-8"
             ></v-text-field>
+            <v-slider
+              class="mt-5 ml-7"
+              v-model="this.team.progress"
+              label="Work Progress"
+              track-color="green lighten-1"
+              thumb-label="always"
+              @change="updateProgress"
+            ></v-slider>
           </v-col>
           <v-btn
             fixed
@@ -332,7 +337,7 @@
 </template>
 
 <script>
-import info from "../store/teamInfo";
+import info from "@/store/index";
 export default {
   name: "TeamsName",
   data: () => ({
@@ -365,7 +370,7 @@ export default {
   computed: {
     nameTeam: function () {
       const id = this.$route.params.id;
-      const result = info.teams.find((team) => team.id == id);
+      const result = info.state.teams.find((team) => team.id == id);
       if (!result) {
         return "";
       }
@@ -388,7 +393,7 @@ export default {
         this.warning = true;
       } else {
         this.dialog = false;
-        this.members.push({
+        this.team.members.push({
           id: ++this.currentId,
           name: this.addMember.name,
           salary: this.addMember.salary,
@@ -424,7 +429,7 @@ export default {
     },
   },
   mounted() {
-    this.team = info.teams.find((team) => team.id == this.$route.params.id);
+    this.team = info.state.teams.find((team) => team.id == this.$route.params.id);
   },
 };
 </script>

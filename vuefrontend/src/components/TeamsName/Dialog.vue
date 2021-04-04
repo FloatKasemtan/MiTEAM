@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import info from "@/store/index";
 export default {
   data: () => ({
     addInput: "",
@@ -50,10 +51,10 @@ export default {
   methods: {
     addTeam: function () {
       if (this.addInput === "") {
-        this.dialog = false;
-        this.warning = true;
+        this.$emit('closeDialog');
+        this.$emit('cloaseWarning');
       } else {
-        info.teams.push({
+        info.state.teams.push({
           id: ++this.currentId,
           name: this.addInput,
           members: [],
@@ -61,7 +62,7 @@ export default {
           img: this.addImg,
         });
         this.addInput = "";
-        this.dialog = false;
+        this.$emit('closeDialog');
       }
     },
   },

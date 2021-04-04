@@ -18,13 +18,13 @@
       </div>
     </div>
     <Teamslist :seachTeam="seachTeam" />
-    <Dialog :dialog="dialog" :warning="warning" />
+    <Dialog :dialog="dialog" :warning="warning" @closeDialog='dialog = false' @closeWarning='warning = true' />
   </div>
 </template>
 
 <script>
 import Header from "../components/Header";
-import info from "../store/teamInfo";
+import info from "@/store/index";
 import Teamslist from "../components/TeamsName/TeamsList";
 import Dialog from "../components/TeamsName/Dialog";
 export default {
@@ -34,6 +34,7 @@ export default {
     Teamslist,
     Dialog,
   },
+
   data: () => ({
     pageName: "Teams List",
     seach: "",
@@ -43,7 +44,7 @@ export default {
   }),
   computed: {
     seachTeam: function () {
-      return info.teams.filter((team) => {
+      return info.state.teams.filter((team) => {
         return team.name.toLowerCase().includes(this.seach.toLowerCase());
       });
     },

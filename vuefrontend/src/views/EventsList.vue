@@ -124,7 +124,7 @@
 
 <script>
 import Header from "../components/Header";
-import data from "../store/teamInfo";
+import data from "../assets/teamInfo";
 export default {
   components:{
     Header
