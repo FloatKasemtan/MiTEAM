@@ -13,18 +13,26 @@
           color="black"
         ></v-text-field>
       </v-card-title>
-      <DataTable :headers="headers" :employee="employee" :search="search" />
+      <v-lazy
+        :options="{
+          threshold: 0.1,
+        }"
+        min-height="200"
+        transition="fade-transition"
+      >
+        <DataTable :headers="headers" :employee="employee" :search="search" />
+      </v-lazy>
     </v-card>
   </div>
 </template>
 
 <script>
-import Header from "../components/Header"
-import DataTable from "../components/OtWorker/DataTable"
+import Header from "../components/Header";
+import DataTable from "../components/OtWorker/DataTable";
 export default {
-  components:{
+  components: {
     Header,
-    DataTable
+    DataTable,
   },
   data() {
     return {

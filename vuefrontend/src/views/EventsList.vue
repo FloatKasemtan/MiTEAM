@@ -77,46 +77,53 @@
     </v-row>
     <div>
       <v-row v-for="event in sortedItems" :key="event.name">
-        <v-card
-          @click="event.finish = !event.finish"
-          width="100vw"
-          class="ma-5 eventItem"
-          :class="[event.finish ? 'finish' : 'unfinish']"
+        <v-lazy
+          :options="{
+            threshold: 0.1,
+          }"
+          transition="fade-transition"
         >
-          <v-row>
-            <v-col>
-              <v-card-title>{{ event.name }}</v-card-title
-              ><v-card-subtitle
-                >Start from {{ event.startDate }}</v-card-subtitle
-              >
-            </v-col>
-            <v-col
-              ><v-card-title>Deadline</v-card-title
-              ><v-card-subtitle>{{ event.deadLine }}</v-card-subtitle></v-col
-            >
-            <v-col
-              ><v-card-title>Team</v-card-title>
-              <v-card-subtitle>{{ event.Team }}</v-card-subtitle>
-            </v-col>
-            <v-col>
-              <v-card-title>Status</v-card-title
-              ><v-card-subtitle v-if="event.finish">Finish</v-card-subtitle>
-              <v-card-subtitle v-else>Unfinish</v-card-subtitle>
-            </v-col>
-            <v-card-actions class="mb-4">
+          <v-card
+            @click="event.finish = !event.finish"
+            width="100vw"
+            class="ma-5 eventItem"
+            :class="[event.finish ? 'finish' : 'unfinish']"
+          >
+            <v-row>
               <v-col>
-                <v-btn
-                  text
-                  depressed
-                  @click="deleteEvent(event.name)"
-                  color="error"
+                <v-card-title>{{ event.name }}</v-card-title
+                ><v-card-subtitle
+                  >Start from {{ event.startDate }}</v-card-subtitle
                 >
-                  Delete
-                </v-btn>
-              </v-col></v-card-actions
-            >
-          </v-row>
-        </v-card>
+              </v-col>
+              <v-col
+                ><v-card-title>Deadline</v-card-title
+                ><v-card-subtitle>{{ event.deadLine }}</v-card-subtitle></v-col
+              >
+              <v-col
+                ><v-card-title>Team</v-card-title>
+                <v-card-subtitle>{{ event.Team }}</v-card-subtitle>
+              </v-col>
+              <v-col>
+                <v-card-title>Status</v-card-title
+                ><v-card-subtitle v-if="event.finish">Finish</v-card-subtitle>
+                <v-card-subtitle v-else>Unfinish</v-card-subtitle>
+              </v-col>
+              <v-card-actions class="mb-4">
+                <v-col>
+                  <v-btn
+                    text
+                    depressed
+                    @click="deleteEvent(event.name)"
+                    color="error"
+                  >
+                    Delete
+                  </v-btn>
+                </v-col></v-card-actions
+              >
+            </v-row>
+          </v-card>
+        </v-lazy>
       </v-row>
     </div>
   </div>
@@ -124,14 +131,14 @@
 
 <script>
 import Header from "../components/Header";
-import data from "../assets/teamInfo";
+import data from "@/store/index";
 export default {
-  components:{
-    Header
+  components: {
+    Header,
   },
   data: (vm) => ({
     pageName: "Events",
-    items: data.teams.map((team) => team.name),
+    items: data.state.teams.map((team) => team.name),
     valid: false,
     date: new Date().toISOString().substr(0, 10),
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),

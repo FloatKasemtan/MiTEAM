@@ -13,7 +13,14 @@
           color="black"
         ></v-text-field>
       </v-card-title>
-      <DataTable :headers="headers" :employee="employee" :search="search" />
+      <v-lazy
+        :options="{
+          threshold: 0.1,
+        }"
+        transition="fade-transition"
+      >
+        <DataTable :headers="headers" :employee="employee" :search="search" />
+      </v-lazy>
     </v-card>
   </div>
 </template>

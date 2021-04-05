@@ -1,23 +1,23 @@
 <template>
   <section class="destination">
     <h1 class="d-flex ml-7">
-        <v-btn icon to="/team" class="mt-5 pa-5"
-          ><v-icon elevation="2" color="black" large
-            >mdi-chevron-left
-          </v-icon></v-btn
-        >
-        <div class="headerMember ml-5">
-          {{ this.team.name }}
-        </div>
-        <v-btn
-          @click="editTeam"
-          class="ml-5 mt-5"
-          elevation="2"
-          rounded
-          color="white"
-          ><v-icon>mdi-clipboard-edit</v-icon></v-btn
-        >
-      </h1>
+      <v-btn icon to="/team" class="mt-5 pa-5"
+        ><v-icon elevation="2" color="black" large
+          >mdi-chevron-left
+        </v-icon></v-btn
+      >
+      <div class="headerMember ml-5">
+        {{ this.team.name }}
+      </div>
+      <v-btn
+        @click="editTeam"
+        class="ml-5 mt-5"
+        elevation="2"
+        rounded
+        color="white"
+        ><v-icon>mdi-clipboard-edit</v-icon></v-btn
+      >
+    </h1>
     <div class="mx-16">
       <div>
         <v-row class="justify-space-between">
@@ -429,7 +429,9 @@ export default {
     },
   },
   mounted() {
-    this.team = info.state.teams.find((team) => team.id == this.$route.params.id);
+    this.team = info.state.teams.find(
+      (team) => team.id == this.$route.params.id
+    );
   },
 };
 </script>

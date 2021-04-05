@@ -1,12 +1,11 @@
 <template>
   <v-row class="pa-5">
-      <v-col cols="12" md="3" v-for="team in seachTeam" :key="team.id">
-        <v-lazy
+    <v-col cols="12" md="3" v-for="team in seachTeam" :key="team.id">
+      <v-lazy
         v-model="isActive"
         :options="{
-          threshold: .5
+          threshold: 0.1,
         }"
-        min-height="200"
         transition="fade-transition"
       >
         <v-hover v-slot="{ hover }">
@@ -43,6 +42,7 @@
               stream
             ></v-progress-linear>
             <v-card-actions>
+              <v-spacer></v-spacer>
               <v-btn
                 outlined
                 rounded
@@ -54,18 +54,17 @@
             </v-card-actions>
           </v-card>
         </v-hover>
-        </v-lazy>
-      </v-col>
-    </v-row>
+      </v-lazy>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
-props:{
-    seachTeam: Object
-},
-
-}
+  props: {
+    seachTeam: Object,
+  },
+};
 </script>
 
 <style scoped>
