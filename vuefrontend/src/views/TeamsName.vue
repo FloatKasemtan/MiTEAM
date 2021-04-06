@@ -18,13 +18,17 @@
       </div>
     </div>
     <Teamslist :seachTeam="seachTeam" />
-    <Dialog :dialog="dialog" :warning="warning" @closeDialog='dialog = false' @closeWarning='warning = true' />
+    <Dialog
+      :dialog="dialog"
+      :warning="warning"
+      @closeDialog="dialog = false"
+      @closeWarning="warning = true"
+    />
   </div>
 </template>
 
 <script>
 import Header from "../components/Header";
-import info from "@/store/index";
 import Teamslist from "../components/TeamsName/TeamsList";
 import Dialog from "../components/TeamsName/Dialog";
 export default {
@@ -44,7 +48,7 @@ export default {
   }),
   computed: {
     seachTeam: function () {
-      return info.state.teams.filter((team) => {
+      return this.$store.state.teams.filter((team) => {
         return team.name.toLowerCase().includes(this.seach.toLowerCase());
       });
     },

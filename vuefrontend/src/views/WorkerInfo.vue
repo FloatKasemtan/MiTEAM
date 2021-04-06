@@ -34,7 +34,6 @@
               label="Work Progress"
               track-color="green lighten-1"
               thumb-label="always"
-              @change="updateProgress"
             ></v-slider>
           </v-col>
           <v-btn
@@ -184,13 +183,15 @@
             <h1>Edit Team</h1>
             <v-text-field
               label="Team Name"
-              v-model="this.team.name"
+              v-model="editedTeam"
               color="#31517d"
             >
             </v-text-field>
           </v-card-text>
           <v-card-actions>
-            <v-btn text color="#3949AB"> Comfirm Edit </v-btn>
+            <v-btn text color="#3949AB" @click="confirmEditTeam">
+              Comfirm Edit
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn text depressed color="error"> Delete </v-btn>
           </v-card-actions>
@@ -337,7 +338,6 @@
 </template>
 
 <script>
-import info from "@/store/index";
 export default {
   name: "TeamsName",
   data: () => ({
@@ -349,7 +349,7 @@ export default {
     warning: false,
     seach: "",
     statusItems: ["Worker", "Intern Student", "Part-Time"],
-
+    editedTeam: "",
     addMember: {
       name: "",
       salary: "",
@@ -411,11 +411,18 @@ export default {
       this.deleteIndex = id;
     },
     comfirmDelete() {
-      this.members = this.members.filter((el) => el.id != this.deleteIndex);
+      this.team.members = this.team.members.filter(
+        (el) => el.id != this.deleteIndex
+      );
       this.dialogDelete = false;
     },
     editTeam() {
       this.editTeamName = true;
+      this.editedTeam = this.team.name;
+    },
+    confirmEditTeam() {
+      this.editTeamName = false;
+      this.team.name = this.editedTeam;
     },
     editInfo(member) {
       this.dialogEdit = true;
@@ -423,13 +430,13 @@ export default {
     },
     editConfirm(id) {
       this.dialogEdit = false;
-      const indexMember = this.members.findIndex((el) => el.id == id);
-      this.members[indexMember] = this.editMember;
-      this.members = [...this.members];
+      const indexMember = this.team.members.findIndex((el) => el.id == id);
+      this.team.members[indexMember] = this.editMember;
+      this.team.members = [...this.members];
     },
   },
   mounted() {
-    this.team = info.state.teams.find(
+    this.team = this.$store.state.teams.find(
       (team) => team.id == this.$route.params.id
     );
   },
