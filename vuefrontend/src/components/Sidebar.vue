@@ -61,6 +61,11 @@ export default {
     return {
       user: "Kasemtan T.",
       items: [
+        {
+          title: "Dashboard",
+          icon: "mdi-clock-time-eleven",
+          to: "/dashboard",
+        },
         { title: "Teams", icon: "mdi-view-dashboard", to: "/team" },
         {
           title: "Events",
