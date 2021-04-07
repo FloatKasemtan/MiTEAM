@@ -433,6 +433,7 @@ export default {
       const indexMember = this.team.members.findIndex((el) => el.id == id);
       this.team.members[indexMember] = this.editMember;
       this.team.members = [...this.members];
+      console.log(this.team.members);
     },
   },
   mounted() {

@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style scoped>
-.logo{
+.logo {
   font-size: 2em;
   color: transparent;
   -webkit-text-stroke: 0.7px white;

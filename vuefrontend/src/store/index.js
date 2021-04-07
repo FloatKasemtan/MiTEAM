@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
@@ -109,7 +109,7 @@ export default new Vuex.Store({
                     },
                 ],
                 progress: 20,
-                img: "https://storage.googleapis.com/gen-atmedia/3/2015/08/2bb3585735eedc2040f79a4609514e0e4af2ab3d.jpeg",
+                img: "",
             },
             {
                 id: 2,
@@ -152,7 +152,7 @@ export default new Vuex.Store({
                     },
                 ],
                 progress: 90,
-                img: "https://hips.hearstapps.com/vidthumb/images/delish-giant-ice-cream-sandwich-cake-still002-1529699322.jpg?crop=0.716xw%3A0.718xh%3B0.151xw%2C0.134xh&resize=480%3A270",
+                img: "",
             },
             {
                 id: 3,
@@ -168,7 +168,7 @@ export default new Vuex.Store({
                 },
                 members: [],
                 progress: 30,
-                img: "http://www.ndtv.com/cooks/images/chocolate.eclairs.jpg",
+                img: "",
             },
             {
                 id: 4,
@@ -184,14 +184,14 @@ export default new Vuex.Store({
                 },
                 members: [],
                 progress: 100,
-                img: "https://hips.hearstapps.com/del.h-cdn.co/assets/18/07/1518475314-vanilla-cupcake-horizontal-.jpg",
+                img: "",
             },
             {
                 id: 5,
                 name: "Gingerbread",
                 members: [],
                 progress: 81,
-                img: "https://www.superhealthykids.com/wp-content/uploads/2020/11/Gingerbread-Cookies-4sml.jpg",
+                img: "",
             },
             {
                 id: 6,
@@ -207,7 +207,7 @@ export default new Vuex.Store({
                 },
                 members: [],
                 progress: 40,
-                img: "https://www.atrafloor.com/app/uploads/2017/01/jelly-bean-vinyl-flooring-multicolour.jpg",
+                img: "",
             },
             {
                 id: 7,
@@ -223,7 +223,7 @@ export default new Vuex.Store({
                 },
                 members: [],
                 progress: 99,
-                img: "http://sc01.alicdn.com/kf/H012b3ea0f9f74449b3f33e3b6ba7a2e77.jpg",
+                img: "",
             },
             {
                 id: 8,
@@ -239,7 +239,7 @@ export default new Vuex.Store({
                 },
                 members: [],
                 progress: 12,
-                img: "https://www.grandturkishbazaar.com/wp-content/uploads/2019/01/turkish-honeycomb.jpg",
+                img: "",
             },
             {
                 id: 9,
@@ -255,7 +255,7 @@ export default new Vuex.Store({
                 },
                 members: [],
                 progress: 60,
-                img: "https://www.starbucks.co.th/stb-media/2020/08/7.Glaze-Donut1080-1.png",
+                img: "",
             },
             {
                 id: 10,
@@ -271,11 +271,47 @@ export default new Vuex.Store({
                 },
                 members: [],
                 progress: 50,
-                img: "https://i.insider.com/5b5856a9c171cb21008b4639?width=1136&format=jpeg",
+                img: "",
+            },
+        ],
+        events: [{
+                name: "event1",
+                startDate: "03/18/2021",
+                deadLine: "03/20/2021",
+                Team: "Apple",
+                finish: true,
+            },
+            {
+                name: "event2",
+                startDate: "03/18/2021",
+                deadLine: "04/20/2021",
+                Team: "Apple",
+                finish: false,
+            },
+            {
+                name: "event3",
+                startDate: "03/18/2021",
+                deadLine: "03/20/2021",
+                Team: "Apple",
+                finish: true,
+            },
+            {
+                name: "event4",
+                startDate: "03/18/2021",
+                deadLine: "03/20/2021",
+                Team: "Apple",
+                finish: true,
+            },
+            {
+                name: "event5",
+                startDate: "03/18/2021",
+                deadLine: "03/20/2021",
+                Team: "Apple",
+                finish: false,
             },
         ],
     },
     mutations: {},
     actions: {},
-    modules: {}
-})
+    modules: {},
+});

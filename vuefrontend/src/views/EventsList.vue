@@ -85,7 +85,7 @@
         >
           <v-card
             @click="event.finish = !event.finish"
-            width="100vw"
+            width="80vw"
             class="ma-5 eventItem"
             :class="[event.finish ? 'finish' : 'unfinish']"
           >
@@ -145,53 +145,16 @@ export default {
     menu1: false,
     event: "",
     assignTeam: "",
-    events: [
-      {
-        name: "event1",
-        startDate: "03/18/2021",
-        deadLine: "03/20/2021",
-        Team: "Apple",
-        finish: true,
-      },
-      {
-        name: "event2",
-        startDate: "03/18/2021",
-        deadLine: "04/20/2021",
-        Team: "Apple",
-        finish: false,
-      },
-      {
-        name: "event3",
-        startDate: "03/18/2021",
-        deadLine: "03/20/2021",
-        Team: "Apple",
-        finish: true,
-      },
-      {
-        name: "event4",
-        startDate: "03/18/2021",
-        deadLine: "03/20/2021",
-        Team: "Apple",
-        finish: true,
-      },
-      {
-        name: "event5",
-        startDate: "03/18/2021",
-        deadLine: "03/20/2021",
-        Team: "Apple",
-        finish: false,
-      },
-    ],
   }),
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
     sortedItems: function () {
-      this.events.sort((a, b) => {
+      this.$store.state.events.sort((a, b) => {
         return new Date(a.deadLine) - new Date(b.deadLine);
       });
-      return this.events;
+      return this.$store.state.events;
     },
   },
 
@@ -204,7 +167,9 @@ export default {
   methods: {
     deleteEvent(name) {
       this.checked = name;
-      this.events = this.events.filter((el) => el.name != this.checked);
+      this.$store.state.events = this.$store.state.events.filter(
+        (el) => el.name != this.checked
+      );
     },
     formatDate(date) {
       if (!date) return null;
@@ -221,7 +186,7 @@ export default {
     addEvent() {
       if (this.event == "") {
       } else {
-        this.events.push({
+        this.$store.state.events.push({
           name: this.event,
           startDate: new Date().toISOString().substr(0, 10),
           deadLine: this.dateFormatted,
