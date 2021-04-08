@@ -12,4 +12,8 @@ export default {
 }
 </script>
 <style>
+.dash-topic {
+  font-size: 1.5em;
+  font-weight: bold;
+}
 </style>

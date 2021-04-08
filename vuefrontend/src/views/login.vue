@@ -159,7 +159,7 @@ export default {
       if (this.username == "" && this.password == "") {
       } else if (this.username == "admin") {
         if (this.password == "111") {
-          this.$router.push("/team");
+          this.$router.push("/dashboard");
         } else {
           this.password = this.username = "";
           this.wrongData = "password";
