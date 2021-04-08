@@ -63,7 +63,7 @@ export default {
       items: [
         {
           title: "Dashboard",
-          icon: "mdi-clock-time-eleven",
+          icon: "mdi-desktop-mac-dashboard",
           to: "/dashboard",
         },
         { title: "Teams", icon: "mdi-view-dashboard", to: "/team" },
