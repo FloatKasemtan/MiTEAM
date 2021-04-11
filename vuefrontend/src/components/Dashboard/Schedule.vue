@@ -1,14 +1,7 @@
 <template>
-<v-lazy
-        v-model="isActive"
-        :options="{
-          threshold: 0.1,
-        }"
-        transition="fade-transition"
-      >
-  <v-card class="mr-8 mb-5 rounded-xl" height="50vh" width="30vw">
+  <v-card class="rounded-xl">
     <v-card-title class="ml-8 dash-topic">Up coming Schedule</v-card-title>
-    <v-timeline class="ml-10" dense>
+    <v-timeline  class="ml-10" dense style="">
       <v-timeline-item
         v-for="message in sortedItems"
         :key="message.name"
@@ -24,7 +17,6 @@
       </v-timeline-item>
     </v-timeline>
   </v-card>
-</v-lazy>
 </template>
 
 <script>
