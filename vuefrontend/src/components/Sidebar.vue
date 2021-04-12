@@ -47,7 +47,7 @@
 
     <template #append>
       <div>
-        <v-btn to="/" block color="red">
+        <v-btn to="/" @click="this.$store.state.isLogin = false" block color="red">
           <v-icon>mdi-logout</v-icon>
         </v-btn>
       </div>

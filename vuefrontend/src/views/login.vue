@@ -159,6 +159,7 @@ export default {
       if (this.username == "" && this.password == "") {
       } else if (this.username == "admin") {
         if (this.password == "111") {
+          this.$store.state.isLogin = true;
           this.$router.push("/dashboard");
         } else {
           this.password = this.username = "";

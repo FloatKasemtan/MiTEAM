@@ -1,10 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import axios from 'axios'
 Vue.use(Vuex);
+Vue.use(axios)
 
 export default new Vuex.Store({
     state: {
+        isLogin: false,
         teams: [{
                 id: 1,
                 name: "Frozen Yogurt",
@@ -490,8 +492,26 @@ export default new Vuex.Store({
                 time: 19,
             },
         ],
+        items: [],
     },
-    mutations: {},
-    actions: {},
+    getters: {
+        items: state => {
+            return state.items;
+        }
+    },
+    mutations: {
+        SET_Item(state, items) {
+            state.items = items
+        }
+    },
+    actions: {
+        loadItems({ commit }) {
+            axios
+                .get('Your API link')
+                .then((response)
+
+                )
+        }
+    },
     modules: {},
 });

@@ -1,6 +1,6 @@
 <template>
-  <v-card class="rounded-xl">
-    <div class="ml-8 mb-2 dash-topic">Worker with highest Overtime</div>
+  <v-card class="rounded-xl" color="#f6f6f6">
+        <v-card-title class="ml-8 mb-2 dash-topic">Worker with highest Overtime</v-card-title>
     <v-data-table
       :headers="headers"
       :items="this.$store.state.OTEmployee"

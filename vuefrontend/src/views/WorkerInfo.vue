@@ -368,14 +368,6 @@ export default {
     },
   }),
   computed: {
-    nameTeam: function () {
-      const id = this.$route.params.id;
-      const result = info.state.teams.find((team) => team.id == id);
-      if (!result) {
-        return "";
-      }
-      return result.name;
-    },
     seachMember: function () {
       return this.team.members.filter((member) => {
         return member.name.toLowerCase().includes(this.seach.toLowerCase());

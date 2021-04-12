@@ -2,7 +2,7 @@
   <v-app>
     <div class="screen">
       <Sidebar />
-      <v-main class="main">
+      <v-main class="main"  v-if="this.$store.state.isLogin">
         <v-container fluid>
           <router-view></router-view>
         </v-container>
