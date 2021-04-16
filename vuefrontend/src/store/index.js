@@ -6,7 +6,7 @@ Vue.use(axios)
 
 export default new Vuex.Store({
     state: {
-        isLogin: false,
+        isLogin: true,
         teams: [{
                 id: 1,
                 name: "Frozen Yogurt",
@@ -316,8 +316,8 @@ export default new Vuex.Store({
                 team: "Frozen Yogurt",
                 name: "John",
                 contact: "@gmail.com",
-                in: 9.0,
-                out: 17,
+                in: new Date(1618562483000),
+                out: new Date(),
             },
             {
                 team: "Gingerbread",
