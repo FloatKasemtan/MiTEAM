@@ -1,2 +1,4 @@
-package com.miteam.floaty.check;public class Check_out {
+package com.miteam.floaty.check;
+
+public class Check_out {
 }

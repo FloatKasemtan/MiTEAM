@@ -3,6 +3,7 @@ package com.miteam.floaty.employee;
 import com.miteam.floaty.utils.SQLconnector;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
@@ -15,11 +16,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
-public class ListEmployee {
+public class List {
     @GetMapping(path = "/list")
-    public Map<String, Object> list(int id){
+    public Map<String, Object> list(@RequestParam int id){
         Map<String, Object> res = new HashMap<>();
-
         try  {
             Connection connection = SQLconnector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE team_id = ?");

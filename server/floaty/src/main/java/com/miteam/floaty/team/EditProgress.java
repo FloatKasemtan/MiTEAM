@@ -1,2 +1,4 @@
-package com.miteam.floaty.team;public class editProgress {
+package com.miteam.floaty.team;
+
+public class EditProgress {
 }

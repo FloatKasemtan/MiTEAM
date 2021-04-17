@@ -1,2 +1,4 @@
-package com.miteam.floaty.event;public class Delete {
+package com.miteam.floaty.event;
+
+public class Delete {
 }

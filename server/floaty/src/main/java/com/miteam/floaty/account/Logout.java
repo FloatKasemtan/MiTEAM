@@ -1,2 +1,4 @@
-package com.miteam.floaty.account;public class Logout {
+package com.miteam.floaty.account;
+
+public class Logout {
 }

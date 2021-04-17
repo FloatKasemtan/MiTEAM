@@ -14,9 +14,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/event")
-public class Add {
+public class EventAdd {
     @PostMapping(path = "/insert")
-    public Map<String, Object> eventAdd(@RequestParam String name, @RequestParam DateTimeFormatter start, @RequestParam DateTimeFormatter deadline, @RequestParam int team_id) {
+    public Map<String, Object> eventAdd(@RequestParam String name, @RequestParam String start, @RequestParam String deadline, @RequestParam int team_id) {
         Map<String, Object> res = new HashMap<>();
         try {
             Connection connection = SQLconnector.getConnection();

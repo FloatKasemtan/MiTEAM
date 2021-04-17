@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/team")
-public class Delete {
+public class TeamDelete {
     @GetMapping(path = "/delete")
     public Map<String, Object> delete(int id){
         Map<String, Object> res = new HashMap<>();

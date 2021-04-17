@@ -1,2 +1,39 @@
-package com.miteam.floaty.account;public class Regis {
+package com.miteam.floaty.account;
+
+import com.miteam.floaty.utils.SQLconnector;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/account")
+public class Regis {
+    @PostMapping(path = "/register")
+    public Map<String, Object> regis(@RequestParam String usernsame, @RequestParam String password, @RequestParam String image){
+        Map<String, Object> res = new HashMap<>();
+        try
+        {
+            Connection connection = SQLconnector.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (username,  password, image)" + " VALUES (?, ?, ?)");
+
+            preparedStatement.setString (1, usernsame);
+            preparedStatement.setString (2, password);
+            preparedStatement.setString(3, image);
+
+            preparedStatement.executeQuery();
+            res.put("SUCCESS", true);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            res.put("SUCCESS", false);
+        }
+        return res;
+    }
 }

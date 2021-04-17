@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/team")
-public class List {
+public class TeamList {
     @GetMapping(path = "/list")
     public Map<String, Object> list(){
         Map<String, Object> res = new HashMap<>();

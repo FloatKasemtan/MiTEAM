@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/team")
-public class Add {
+public class TeamAdd {
     @PostMapping(path = "/insert")
     public Map<String, Object> Add(@RequestParam String name,@RequestParam String image){
         Map<String, Object> res = new HashMap<>();
@@ -22,7 +22,7 @@ public class Add {
             preparedStatement.setString (1, name);
             preparedStatement.setString (2, image);
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             res.put("SUCCESS", true);
         }
         catch (Exception e)

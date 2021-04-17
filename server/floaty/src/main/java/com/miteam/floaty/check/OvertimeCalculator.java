@@ -1,2 +1,4 @@
-package com.miteam.floaty.check;public class OvertimeCalculator {
+package com.miteam.floaty.check;
+
+public class OvertimeCalculator {
 }
