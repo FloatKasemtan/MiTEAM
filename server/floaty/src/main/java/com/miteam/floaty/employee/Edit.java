@@ -1,10 +1,7 @@
 package com.miteam.floaty.employee;
 
 import com.miteam.floaty.utils.SQLconnector;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +11,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/employee")
 public class Edit {
-    @PostMapping(path = "/update")
+    @PutMapping(path = "/update")
     public Map<String, Object> edit(@RequestParam String fname, @RequestParam String lname, @RequestParam String image, @RequestParam double salary, @RequestParam String status, @RequestParam String email, @RequestParam boolean is_manager, @RequestParam int employee_id) {
         Map<String, Object> res = new HashMap<>();
         try {

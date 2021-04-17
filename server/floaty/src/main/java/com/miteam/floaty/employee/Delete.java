@@ -1,10 +1,7 @@
 package com.miteam.floaty.employee;
 
 import com.miteam.floaty.utils.SQLconnector;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/employee")
 public class Delete {
-    @GetMapping(path = "/delete")
+    @DeleteMapping(path = "/delete")
     public Map<String, Object> delete(@RequestParam int id){
         Map<String, Object> res = new HashMap<>();
         try  {

@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/team")
 public class TeamEdit {
-    @PostMapping(path = "/update")
+    @PutMapping(path = "/update")
     public Map<String, Object> update(@RequestParam int id, @RequestParam String name, @RequestParam String image){
         Map<String, Object> res = new HashMap<>();
         try  {
