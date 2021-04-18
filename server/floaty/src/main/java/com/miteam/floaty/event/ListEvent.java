@@ -17,7 +17,7 @@ import java.util.Map;
 @RequestMapping("/event")
 public class ListEvent {
     @GetMapping(path = "/list")
-    public Map<String, Object> list_event(){
+    public Map<String, Object> listEvent(){
         Map<String, Object> res = new HashMap<>();
         try  {
             Connection connection = SQLconnector.getConnection();
@@ -25,12 +25,14 @@ public class ListEvent {
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> events = new ArrayList<>();
             while (resultSet.next()) {
-                Map<String, Object> team = new HashMap<>();
-                team.put("event_id", resultSet.getInt("event_id"));
-                team.put("team_id", resultSet.getInt("team_id"));
-                team.put("deadline", resultSet.getString("deadline"));
-                team.put("progress", resultSet.getInt("progress"));
-                events.add(team);
+                Map<String, Object> event = new HashMap<>();
+                event.put("event_id", resultSet.getInt("event_id"));
+                event.put("team_id", resultSet.getInt("team_id"));
+                event.put("deadline", resultSet.getDate("deadline"));
+                event.put("is_finish", resultSet.getBoolean("is_finish"));
+                event.put("start_time", resultSet.getDate("start_time"));
+                event.put("name", resultSet.getString("name"));
+                events.add(event);
             }
             res.put("events", events);
         } catch (SQLException e) {

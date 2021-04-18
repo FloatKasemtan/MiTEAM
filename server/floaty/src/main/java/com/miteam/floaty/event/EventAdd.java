@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
-เ
 @RestController
 @RequestMapping("/event")
 public class EventAdd {
