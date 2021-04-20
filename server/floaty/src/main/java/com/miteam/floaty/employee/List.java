@@ -21,6 +21,7 @@ public class List {
     public Map<String, Object> list(@RequestParam int id){
         Map<String, Object> res = new HashMap<>();
         try  {
+
             Connection connection = SQLconnector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE team_id = ?");
             preparedStatement.setInt(1,id);

@@ -30,5 +30,4 @@ public class JwtUtil  {
     public static String parseToken(String jws) throws JwtException {
         return Jwts.parserBuilder().setSigningKey(KEY).build().parseClaimsJws(jws).getBody().getSubject();
     }
-
 }

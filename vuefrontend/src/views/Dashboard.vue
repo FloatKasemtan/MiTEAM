@@ -34,6 +34,7 @@ import Schedule from "../components/Dashboard/Schedule";
 import Graph from "../components/Dashboard/Graph";
 import LateEmployee from "../components/Dashboard/LateEmployee";
 import Overtimer from "../components/Dashboard/Overtimer";
+import axios from "../axios/axios";
 export default {
   data: () => ({
     pageName: "Dashboard",
@@ -45,6 +46,10 @@ export default {
     LateEmployee,
     Overtimer,
   },
+  async mounted(){
+    const response = await axios.get('/employee/listAll',);
+    console.log(response.data)
+  }
 };
 </script>
 

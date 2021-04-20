@@ -131,6 +131,8 @@
 </template>
 
 <script>
+import axios from "../axios/axios";
+import qs from "qs";
 export default {
   name: "login",
   data: () => ({
@@ -154,22 +156,18 @@ export default {
     repassword: "",
   }),
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate();
-      if (this.username == "" && this.password == "") {
-      } else if (this.username == "admin") {
-        if (this.password == "111") {
-          this.$store.state.isLogin = true;
-          this.$router.push("/dashboard");
-        } else {
-          this.password = this.username = "";
-          this.wrongData = "password";
-          this.wrongUser = true;
-        }
+      const response = await axios.post("/account/login", { username: this.username, pass: this.password });
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + response.data.token;
+      console.log(response.data);
+      if (response.data.loginStatus) {
+        this.$router.push("/dashboard");
       } else {
-        this.password = this.username = "";
-        this.wrongData = "username";
-        this.wrongUser = true;
+          this.password = this.username = "";
+          this.wrongData = "username or password";
+          this.wrongUser = true;
       }
     },
     register() {

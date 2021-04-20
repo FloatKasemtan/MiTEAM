@@ -1,10 +1,13 @@
 package com.miteam.floaty.event;
 
+import com.miteam.floaty.account.JwtUtil;
 import com.miteam.floaty.utils.SQLconnector;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.http.HttpRequest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,11 +20,14 @@ import java.util.Map;
 @RequestMapping("/event")
 public class ListEvent {
     @GetMapping(path = "/list")
-    public Map<String, Object> listEvent(){
+    public Map<String, Object> listEvent(HttpServletRequest req){
         Map<String, Object> res = new HashMap<>();
+        String token = req.getHeader("Authorization");
+        String owner = JwtUtil.parseToken(token.split(" ")[1]);
         try  {
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM event");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM event WHERE owner = ?");
+            preparedStatement.setString(1,owner);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> events = new ArrayList<>();
             while (resultSet.next()) {

@@ -1,10 +1,13 @@
 package com.miteam.floaty.employee;
 
+import com.miteam.floaty.account.JwtUtil;
 import com.miteam.floaty.utils.SQLconnector;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,19 +20,23 @@ import java.util.Map;
 @RequestMapping("/employee")
 public class ListAll {
     @GetMapping(path = "/listAll")
-    public Map<String, Object> list(){
+    public Map<String, Object> list(HttpServletRequest req){
         Map<String, Object> res = new HashMap<>();
+        String token = req.getHeader("Authorization");
+        System.out.println(token);
+        String owner = JwtUtil.parseToken(token.split(" ")[1]);
         try  {
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee,team WHERE team.owner = ? AND employee.team_id = team.team_id");
+            preparedStatement.setString(1,owner);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> employees = new ArrayList<>();
             while (resultSet.next()) {
                 Map<String, Object> employee = new HashMap<>();
-                employee.put("team_id", resultSet.getInt("employee_id"));
-                employee.put("name", resultSet.getInt("team_id"));
-                employee.put("image", resultSet.getString("firstname"));
+                employee.put("team_id", resultSet.getInt("team_id"));
+                employee.put("firstname", resultSet.getString("firstname"));
                 employee.put("lastname", resultSet.getString("lastname"));
+                employee.put("image", resultSet.getString("image"));
                 employee.put("salary", resultSet.getString("salary"));
                 employee.put("status", resultSet.getString("status"));
                 employee.put("email", resultSet.getString("email"));
