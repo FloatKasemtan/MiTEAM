@@ -1,6 +1,6 @@
 package com.miteam.floaty.DTO;
 
-public class ReceiveUserPass {
+public class LoginDTO {
     private String username;
     private String pass;
 

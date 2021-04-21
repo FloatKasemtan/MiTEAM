@@ -132,7 +132,6 @@
 
 <script>
 import axios from "../axios/axios";
-import qs from "qs";
 export default {
   name: "login",
   data: () => ({

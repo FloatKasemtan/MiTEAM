@@ -23,7 +23,7 @@ public class SQLconnector {
     }
 
     private static void reconnect() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://mysql.cslab.bsthun.com:1205/miteam", "float", "2688");
+        connection = DriverManager.getConnection("jdbc:mysql://csproject.sit.kmutt.ac.th:3306/db63130500237", "63130500237", "abcd1234");
         logger.info("Reconnected to MySQL Server");
     }
 

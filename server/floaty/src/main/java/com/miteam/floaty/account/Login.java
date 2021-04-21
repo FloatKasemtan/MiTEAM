@@ -1,6 +1,6 @@
 package com.miteam.floaty.account;
 
-import com.miteam.floaty.DTO.ReceiveUserPass;
+import com.miteam.floaty.DTO.LoginDTO;
 import com.miteam.floaty.utils.SQLconnector;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/account")
 public class Login {
     @PostMapping(path = "/login")
-    public Map<String, Object> _login(@RequestBody ReceiveUserPass user, HttpServletResponse response) {
+    public Map<String, Object> _login(@RequestBody LoginDTO user, HttpServletResponse response) {
         Map<String, Object> res = new HashMap<>();
         try {
             Connection connection = SQLconnector.getConnection();
