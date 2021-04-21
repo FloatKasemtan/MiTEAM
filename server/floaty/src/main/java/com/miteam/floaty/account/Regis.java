@@ -18,7 +18,7 @@ public class Regis {
         try
         {
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (username,  password, image, first_name, last_name, email)" + " VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin(username,  password, image, first_name, last_name, email) VALUES (?, ?, ?, ?, ?, ?)");
 
             preparedStatement.setString (1, user.getUsername());
             preparedStatement.setString (2, user.getPassword());

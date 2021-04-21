@@ -11,101 +11,20 @@
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item>
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field
-              v-model="username"
-              :rules="nameRules"
-              prepend-icon="mdi-account"
-              label="username"
-              required
-              color="#31517d"
-              class="my-3"
-              clearable
-              clear-icon="mdi-close-circle"
-              @keyup.enter="validate"
-            ></v-text-field>
-
-            <v-text-field
-              v-model="password"
-              :rules="passRules"
-              prepend-icon="mdi-key"
-              label="password"
-              required
-              color="#31517d"
-              class="my-3"
-              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="showPass ? 'text' : 'password'"
-              @click:append="showPass = !showPass"
-              @keyup.enter="validate"
-            ></v-text-field>
-          </v-form>
-          <v-btn
-            block
-            :disabled="!valid"
-            color="#31517D"
-            class="mr-4 rounded-xl white--text"
-            @click="validate"
-          >
-            SIGN IN
-          </v-btn>
+          <Signin
+            :nameRules="nameRules"
+            :passRules="passRules"
+            @wrongUser="wrongUser = true"
+          />
         </v-tab-item>
         <v-tab-item>
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field
-              v-model="usernameRegis"
-              :rules="nameRules"
-              prepend-icon="mdi-account"
-              label="username"
-              required
-              color="#31517d"
-              class="my-3"
-              clearable
-              clear-icon="mdi-close-circle"
-            ></v-text-field>
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              prepend-icon="mdi-mail"
-              label="E-mail"
-              required
-              color="#31517d"
-              class="my-3"
-              clearable
-              clear-icon="mdi-close-circle"
-            ></v-text-field>
-
-            <v-text-field
-              v-model="passwordRegis"
-              :rules="passRules"
-              prepend-icon="mdi-key"
-              label="password"
-              required
-              color="#31517d"
-              class="my-3"
-              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="showPass ? 'text' : 'password'"
-              @click:append="showPass = !showPass"
-            ></v-text-field>
-            <v-text-field
-              v-model="repassword"
-              :rules="passRules"
-              prepend-icon="mdi-key"
-              label="re enter password"
-              required
-              color="#31517d"
-              class="my-3"
-              :type="'password'"
-            ></v-text-field>
-          </v-form>
-          <v-btn
-            block
-            :disabled="!valid"
-            color="#31517D"
-            class="mr-4 rounded-xl white--text"
-            @click="register"
-          >
-            SIGN UP
-          </v-btn>
+          <Signup
+            :nameRules="nameRules"
+            :passRules="passRules"
+            :emailRules="emailRules"
+            @passMatch="passMatch = true"
+            @regisSuccess="regisSuccess = true"
+          />
         </v-tab-item>
       </v-tabs-items>
     </v-card>
@@ -119,7 +38,7 @@
     </v-card>
     <v-dialog v-model="wrongUser" width="300px">
       <v-alert type="error" elevation="10" class="mb-0" border="bottom"
-        >Your {{ wrongData }} is incorrect!</v-alert
+        >Your username or password are incorrect!</v-alert
       >
     </v-dialog>
     <v-dialog v-model="passMatch" width="300px">
@@ -127,59 +46,37 @@
         >Your password not match!</v-alert
       >
     </v-dialog>
+    <v-dialog v-model="regisSuccess" width="300px">
+      <v-alert type="success" elevation="10" class="mb-0" border="bottom"
+        >Register Successful!</v-alert
+      >
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import axios from "../axios/axios";
+import Signup from "../components/Login/Signup";
+import Signin from "../components/Login/Signin";
 export default {
+  components: {
+    Signin,
+    Signup,
+  },
   name: "login",
   data: () => ({
     valid: true,
     wrongUser: false,
     passMatch: false,
-    wrongData: "",
-    username: "",
     showPass: false,
+    regisSuccess: false,
     tab: null,
     nameRules: [
       (v) => !!v || "username is required",
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
-    password: "",
     passRules: [(v) => !!v || "password is required"],
-    usernameRegis: "",
-    email: "",
     emailRules: [(v) => !!v || "E-mail is required"],
-    passwordRegis: "",
-    repassword: "",
   }),
-  methods: {
-    async validate() {
-      this.$refs.form.validate();
-      const response = await axios.post("/account/login", { username: this.username, pass: this.password });
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + response.data.token;
-      console.log(response.data);
-      if (response.data.loginStatus) {
-        this.$router.push("/dashboard");
-      } else {
-          this.password = this.username = "";
-          this.wrongData = "username or password";
-          this.wrongUser = true;
-      }
-    },
-    register() {
-      if (this.repassword == this.passwordRegis) {
-      } else {
-        this.passMatch = true;
-        this.passwordRegis = "";
-        this.repassword = "";
-        this.usernameRegis = "";
-        this.email = "";
-      }
-    },
-  },
 };
 </script>
 
