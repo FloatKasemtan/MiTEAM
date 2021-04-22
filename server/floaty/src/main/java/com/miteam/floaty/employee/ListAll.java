@@ -26,7 +26,7 @@ public class ListAll {
         try  {
             String owner = JwtUtil.parseToken(token.split(" ")[1]);
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee,team WHERE team.owner = ? AND employee.team_id = team.team_id");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee,team,check_in,check_out WHERE team.owner = ? AND employee.team_id = team.team_id AND check_in.employee_id = employee.employee_id AND check_out.employee_id = employee.employee_id");
             preparedStatement.setString(1,owner);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> employees = new ArrayList<>();
@@ -40,6 +40,8 @@ public class ListAll {
                 employee.put("status", resultSet.getString("status"));
                 employee.put("email", resultSet.getString("email"));
                 employee.put("is_manager", resultSet.getString("is_manager"));
+                employee.put("check_in", resultSet.getTimestamp("check_in_time"));
+                employee.put("check_out", resultSet.getTimestamp("check_out_time"));
                 employees.add(employee);
             }
             res.put("employees", employees);

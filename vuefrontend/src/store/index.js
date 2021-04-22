@@ -7,42 +7,8 @@ export default new Vuex.Store({
     state: {
         userData: {},
         teams: [],
-        events: [{
-                name: "event1",
-                startDate: "03/18/2021",
-                deadLine: "04/8/2021",
-                Team: "Apple",
-                finish: true,
-            },
-            {
-                name: "event2",
-                startDate: "03/18/2021",
-                deadLine: "04/9/2021",
-                Team: "Apple",
-                finish: false,
-            },
-            {
-                name: "event3",
-                startDate: "03/18/2021",
-                deadLine: "04/10/2021",
-                Team: "Apple",
-                finish: true,
-            },
-            {
-                name: "event4",
-                startDate: "03/18/2021",
-                deadLine: "04/20/2021",
-                Team: "Apple",
-                finish: true,
-            },
-            {
-                name: "event5",
-                startDate: "03/18/2021",
-                deadLine: "04/20/2021",
-                Team: "Apple",
-                finish: false,
-            },
-        ],
+        employees: [],
+        events: [],
         lateEmployee: [{
                 team: "Frozen Yogurt",
                 name: "John",
@@ -229,23 +195,32 @@ export default new Vuex.Store({
 
     },
     mutations: {
-
+        SET_TEAMS(state, response) {
+            state.teams = response.data.teams;
+            console.log(state.teams);
+        },
+        SET_EMPLOYEES(state, response) {
+            state.employees = response.data.employees;
+            console.log(state.employees);
+        },
+        SET_EVENTS(state, response) {
+            state.events = response.data.events;
+            console.log(state.events);
+        },
     },
     actions: {
-        async loadUser() {
-            const response = await axios.get("/account/load");
-            console.log(response.data);
-            this.state.userData = response.data.userDetail;
-        },
-        async loadTeamData() {
+        async loadTeamData({ commit }) {
             const response = await axios.get("/team/list");
-            console.log(response.data);
-            this.state.teams = response.data.teams;
+            commit("SET_TEAMS", response)
         },
-        async loadEmployeesData() {
+        async loadEmployeesData({ commit }) {
             const response = await axios.get('/employee/listAll');
-            console.log(response.data)
-        }
+            commit("SET_EMPLOYEES", response);
+        },
+        async loadEventData({ commit }) {
+            const response = await axios.get('/event/list');
+            commit("SET_EVENTS", response);
+        },
     },
     modules: {},
 });

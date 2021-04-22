@@ -1,80 +1,60 @@
 <template>
   <v-card class="rounded-xl" color="#f6f6f6">
-    <v-card-title class="ml-8 mb-2 dash-topic">Check-in Late Worker</v-card-title>
+    <v-card-title class="ml-8 mb-2 dash-topic"
+      >Check-in Late Worker</v-card-title
+    >
     <v-data-table
-    :headers="headers"
-    :items="this.$store.state.lateEmployee"
-    :search="search"
-    :items-per-page="5"
-    ><template #item.in="{ item }">
-      <v-chip v-if="item.in % 1 == 0" color="red" dark>
-        {{ item.in }}.00
-        <div v-if="item.in > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip
-        v-else-if="(item.in * 10) % 1 == 0"
-        :color="getColor(item.in)"
-        dark
-      >
-        {{ item.in }}0
-        <div v-if="item.in > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip v-else :color="getColor(item.in)" dark>
-        {{ item.in }}
-        <div v-if="item.in > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-    </template>
-    <template #item.out="{ item }">
-      <v-chip v-if="item.out % 1 == 0" :color="getColorOut(item.out)" dark>
-        {{ item.out }}.00
-        <div v-if="item.out < 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip
-        v-else-if="(item.out * 10) % 1 == 0"
-        :color="getColorOut(item.out)"
-        dark
-      >
-        {{ item.out }}0
-        <div v-if="item.out > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip v-else :color="getColorOut(item.out)" dark>
-        {{ item.out }}
-        <div v-if="item.out > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-    </template>
-  </v-data-table>
+      :headers="headers"
+      :items="this.$store.state.employees"
+      :search="search"
+      :items-per-page="5"
+      ><template #item.check_in="{ item }">
+        <v-chip :color="getColor(item.check_in)" dark>
+          {{ new Date(item.check_in).getHour() }}
+        </v-chip>
+      </template>
+      <template #item.check_out="{ item }">
+        <v-chip
+          :color="getColorOut(item.out)"
+          dark
+        >
+          {{ item.check_out }}0
+          <div v-if="item.out > 12.0">PM</div>
+          <div v-else>AM</div>
+        </v-chip>
+      </template>
+    </v-data-table>
   </v-card>
 </template>
 
 <script>
 export default {
-  data:() => ({
+  data: () => ({
     headers: [
-        {
-          text: "Team",
-          align: "start",
-          sortable: true,
-          value: "team",
-        },
-        { text: "Name", value: "name" },
-        { text: "Contact", value: "contact" },
-        { text: "Check-in time", value: "in" },
-        { text: "Check-out time", value: "out" },
-      ],
+      {
+        text: "Team",
+        align: "start",
+        sortable: true,
+        value: "team",
+      },
+      { text: "Name", value: "name" },
+      { text: "Contact", value: "contact" },
+      { text: "Check-in time", value: "in" },
+      { text: "Check-out time", value: "out" },
+    ],
   }),
-    methods: {
-    getColorOut(time) {
+  methods: {
+    getColorOut(date) {
+      time = new Date(date)
       if (time < 17.0) return "orange";
       else if (time < 19) return "gray";
       else return "green";
     },
   },
+  mounted(){
+    console.log(new Date(this.$store.state.employees[0].check_in))
+    console.log(new Date(1619121493000))
+  }
 };
 </script>
 

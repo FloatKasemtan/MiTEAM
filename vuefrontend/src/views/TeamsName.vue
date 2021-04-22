@@ -54,6 +54,7 @@ export default {
     },
   },
   mounted(){
+    this.$store.dispatch('loadTeamData');
   }
 };
 </script>

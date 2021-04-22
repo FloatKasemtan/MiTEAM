@@ -29,25 +29,26 @@
 </template>
 
 <script>
-import Header from "../components/Header";
-import Schedule from "../components/Dashboard/Schedule";
-import Graph from "../components/Dashboard/Graph";
-import LateEmployee from "../components/Dashboard/LateEmployee";
-import Overtimer from "../components/Dashboard/Overtimer";
+import VueCookies from "vue-cookies";
+import Vue from "vue";
+
+Vue.use(VueCookies);
 export default {
   data: () => ({
     pageName: "Dashboard",
+    loginStatus: ""
   }),
   components: {
-    Header,
-    Schedule,
-    Graph,
-    LateEmployee,
-    Overtimer,
+    Header:() => import("../components/Header"),
+    Schedule:() => import("../components/Dashboard/Schedule"),
+    Graph:() => import("../components/Dashboard/Graph"),
+    LateEmployee:() => import("../components/Dashboard/LateEmployee"),
+    Overtimer:() => import("../components/Dashboard/Overtimer"),
   },
   async mounted() {
     this.$store.dispatch("loadEmployeesData");
-    this.$store.dispatch('loadTeamData')
+    this.$store.dispatch('loadTeamData');
+    this.$store.dispatch('loadEventData');
   },
 };
 </script>

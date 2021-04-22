@@ -1,12 +1,15 @@
 <template>
   <v-app>
-    <div class="screen">
+    <div class="screen" v-if="loginStatus == 'true'">
       <Sidebar />
       <v-main class="main">
         <v-container fluid>
           <router-view></router-view>
         </v-container>
       </v-main>
+    </div>
+    <div v-else>
+      <v-btn block plain x-large>PLEASE LOGIN</v-btn>
     </div>
   </v-app>
 </template>
@@ -20,12 +23,14 @@ Vue.use(VueCookies);
 export default {
   name: "App",
   data: () => ({
-    
+    loginStatus: Boolean,
   }),
   components: {
     Sidebar,
   },
-  async mounted() {
+  mounted() {
+    this.loginStatus = Vue.$cookies.get("ISLOGIN");
+    console.log(this.loginStatus);
   },
 };
 </script>

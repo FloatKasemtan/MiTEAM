@@ -11,10 +11,10 @@
       <v-list class="d-flex justify-center">
         <v-list-item-icon>
           <v-img
-            v-if="image"
+            v-if="user.image"
             max-width="56"
             max-height="56"
-            :src="image"
+            :src="user.image"
           ></v-img>
           <v-img
             v-else
@@ -35,8 +35,9 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{ user }}</v-list-item-title>
-          <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+          <v-list-item-title>{{ user.firstname }} {{ user.lastname }}</v-list-item-title>
+          <v-list-item-subtitle v-if="loginStatus">Logged In</v-list-item-subtitle>
+          <v-list-item-subtitle v-else>Logged Out</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -71,8 +72,8 @@ Vue.use(VueCookies);
 export default {
   data() {
     return {
-      user: this.$store.state.userData.firstname+" "+this.$store.state.userData.lastname,
-      image: this.$store.state.userData.image,
+      user: {},
+      loginStatus: {},
       items: [
         {
           title: "Dashboard",
@@ -97,11 +98,13 @@ export default {
   methods: {
     logout() {
       Vue.$cookies.set("JWT", null);
+      Vue.$cookies.set("USERDATA", null);
+      Vue.$cookies.set("ISLOGIN", false);
       axios.defaults.headers.common["Authorization"] = null;
     },
   },
   mounted(){
-    
+    this.user = Vue.$cookies.get("USERDATA");
   }
 };
 </script>

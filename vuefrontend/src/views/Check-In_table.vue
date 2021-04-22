@@ -162,5 +162,8 @@ export default {
       ],
     };
   },
+  mounted(){
+    this.$store.dispatch("loadEmployeesData");
+  }
 };
 </script>

@@ -69,6 +69,8 @@ export default {
         if (response.data.loginStatus) {
           // this.$router.push("/dashboard");
           location.href = "/dashboard";
+          Vue.$cookies.set("USERDATA", response.data.userDetail);
+          Vue.$cookies.set("ISLOGIN", response.data.loginStatus);
           this.$store.dispatch("loadUser");
         } else {
           this.password = this.username = "";
