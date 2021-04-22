@@ -29,10 +29,10 @@ public class List {
             ArrayList<Map<String, Object>> employees = new ArrayList<>();
             while (resultSet.next()) {
                 Map<String, Object> employee = new HashMap<>();
-                employee.put("team_id", resultSet.getInt("employee_id"));
-                employee.put("name", resultSet.getInt("team_id"));
-                employee.put("image", resultSet.getString("firstname"));
+                employee.put("employee_id", resultSet.getInt("employee_id"));
+                employee.put("firstname", resultSet.getString("firstname"));
                 employee.put("lastname", resultSet.getString("lastname"));
+                employee.put("image", resultSet.getString("image"));
                 employee.put("salary", resultSet.getString("salary"));
                 employee.put("status", resultSet.getString("status"));
                 employee.put("email", resultSet.getString("email"));

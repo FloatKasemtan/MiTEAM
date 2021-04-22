@@ -42,6 +42,9 @@
 
 <script>
 import axios from "@/axios/axios";
+import VueCookies from "vue-cookies";
+import Vue from "vue";
+Vue.use(VueCookies);
 export default {
   props: {
     nameRules: Object,
@@ -60,11 +63,13 @@ export default {
           username: this.username,
           pass: this.password,
         });
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + response.data.token;
+        Vue.$cookies.set("JWT", response.data.token);
         console.log(response.data);
+        console.log(this.$store.state.userData);
         if (response.data.loginStatus) {
-          this.$router.push("/dashboard");
+          // this.$router.push("/dashboard");
+          location.href = "/dashboard";
+          this.$store.dispatch("loadUser");
         } else {
           this.password = this.username = "";
           this.$emit("wrongUser");

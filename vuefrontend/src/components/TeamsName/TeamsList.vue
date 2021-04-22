@@ -1,6 +1,6 @@
 <template>
   <v-row class="pa-5">
-    <v-col cols="12" md="3" v-for="team in seachTeam" :key="team.id">
+    <v-col cols="12" md="3" v-for="team in seachTeam" :key="team.team_id">
       <v-lazy
         v-model="isActive"
         :options="{
@@ -17,10 +17,10 @@
             :elevation="hover ? 12 : 2"
           >
             <v-img
-              v-if="team.img != ''"
+              v-if="team.image"
               class="white--text justify-space-between"
               height="200px"
-              :src="team.img"
+              :src="team.image"
             >
             </v-img>
             <v-card v-else color="grey" height="200px"> </v-card>
@@ -47,7 +47,7 @@
                 outlined
                 rounded
                 text
-                :to="{ name: 'WorkerInfo', params: { id: team.id } }"
+                :to="{ name: 'WorkerInfo', params: { id: team.team_id } }"
               >
                 more info
               </v-btn>

@@ -77,7 +77,12 @@ export default {
     passRules: [(v) => !!v || "password is required"],
     emailRules: [(v) => !!v || "E-mail is required"],
   }),
+  mounted(){
+    
+    this.$store.dispatch("loadUser");
+  }
 };
+
 </script>
 
 <style scoped>

@@ -11,6 +11,13 @@
       <v-list class="d-flex justify-center">
         <v-list-item-icon>
           <v-img
+            v-if="image"
+            max-width="56"
+            max-height="56"
+            :src="image"
+          ></v-img>
+          <v-img
+            v-else
             max-width="56"
             max-height="56"
             src="../images/logo/logo2nd512.png"
@@ -47,7 +54,7 @@
 
     <template #append>
       <div>
-        <v-btn to="/" @click="this.$store.state.isLogin = false" block color="red">
+        <v-btn href="/" @click="logout" block color="red">
           <v-icon>mdi-logout</v-icon>
         </v-btn>
       </div>
@@ -56,10 +63,16 @@
 </template>
 
 <script>
+import axios from "@/axios/axios";
+import VueCookies from "vue-cookies";
+import Vue from "vue";
+
+Vue.use(VueCookies);
 export default {
   data() {
     return {
-      user: "Kasemtan T.",
+      user: this.$store.state.userData.firstname+" "+this.$store.state.userData.lastname,
+      image: this.$store.state.userData.image,
       items: [
         {
           title: "Dashboard",
@@ -81,6 +94,15 @@ export default {
       ],
     };
   },
+  methods: {
+    logout() {
+      Vue.$cookies.set("JWT", null);
+      axios.defaults.headers.common["Authorization"] = null;
+    },
+  },
+  mounted(){
+    
+  }
 };
 </script>
 

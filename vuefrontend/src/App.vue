@@ -5,11 +5,24 @@
 </template>
 
 <script>
-import VueExtendLayouts from 'vue-extend-layout'
+import axios from "@/axios/axios";
+import VueCookies from "vue-cookies";
+import VueExtendLayouts from "vue-extend-layout";
+import Vue from "vue";
+
+Vue.use(VueCookies);
 export default {
-  name: 'App',
-  components: { VueExtendLayouts }
-}
+  name: "App",
+  components: { VueExtendLayouts },
+
+  mounted() {
+    Vue.$cookies.config("1d");
+    const JWT = Vue.$cookies.get("JWT");
+    if (JWT) {
+      (axios.defaults.headers.common["Authorization"] = "Bearer " + JWT);
+    }
+  },
+};
 </script>
 <style>
 .dash-topic {

@@ -50,7 +50,7 @@
         </v-row>
       </div>
       <v-row class="">
-        <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
           <v-card
             min-width="190"
             max-width="500"
@@ -67,8 +67,8 @@
                 color="grey"
                 style="border-radius: 15px"
                 ><v-img
-                  v-if="team.manager.pic != ''"
-                  :src="team.manager.pic"
+                  v-if="manager.image"
+                  :src="manager.image"
                   alt="can't load pic"
                   aspect-ratio="2"
                 ></v-img
@@ -77,20 +77,16 @@
               <v-list-item-content>
                 <div class="overline mb-4">Manager</div>
                 <v-list-item-title class="headline mb-1">
-                  {{ team.manager.name }}
+                  {{ manager.firstname }} {{ manager.lastname }}
                 </v-list-item-title>
                 <v-list-item-subtitle
-                  >Salary : {{ team.manager.salary }} Baht</v-list-item-subtitle
+                  >Salary : {{ manager.salary }} Baht</v-list-item-subtitle
                 >
                 <v-list-item-subtitle
-                  >Status : {{ team.manager.status }}</v-list-item-subtitle
+                  >Status : {{ manager.status }}</v-list-item-subtitle
                 >
                 <v-list-item-subtitle
-                  >Work Period :
-                  {{ team.manager.period }} Year</v-list-item-subtitle
-                >
-                <v-list-item-subtitle
-                  >Contact : {{ team.manager.contact }}</v-list-item-subtitle
+                  >Contact : {{ manager.email }}</v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -100,7 +96,7 @@
                 outlined
                 rounded
                 text
-                @click="editInfo(team.manager)"
+                @click="editInfo()"
                 style="border: 1.5px white solid"
               >
                 edit
@@ -116,7 +112,7 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-col>
+        </v-col> -->
         <v-col cols="12" md="3" v-for="member in seachMember" :key="member.id">
           <v-card
             min-width="190"
@@ -132,9 +128,9 @@
                 color="grey"
                 style="border-radius: 15px"
                 ><v-img
-                  v-if="member.pic != ''"
-                  :src="member.pic"
-                  alt="can't load pic"
+                  v-if="member.image"
+                  :src="member.image"
+                  alt="can't load image"
                   aspect-ratio="2"
                 ></v-img
               ></v-list-item-avatar>
@@ -142,7 +138,8 @@
               <v-list-item-content>
                 <div class="overline mb-4">Name</div>
                 <v-list-item-title class="headline mb-1">
-                  {{ member.name }}
+                  {{ member.firstname }} 
+                  {{ member.lastname }}
                 </v-list-item-title>
                 <v-list-item-subtitle
                   >Salary : {{ member.salary }} Baht</v-list-item-subtitle
@@ -151,10 +148,7 @@
                   >Status : {{ member.status }}</v-list-item-subtitle
                 >
                 <v-list-item-subtitle
-                  >Work Period : {{ member.period }} Year</v-list-item-subtitle
-                >
-                <v-list-item-subtitle
-                  >Contact : {{ member.contact }}</v-list-item-subtitle
+                  >Contact : {{ member.email }}</v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -338,11 +332,14 @@
 </template>
 
 <script>
+import axios from "@/axios/axios"
 export default {
   name: "TeamsName",
   data: () => ({
     team: null,
     dialog: false,
+    manager: {},
+    employees: [],
     editTeamName: false,
     dialogEdit: false,
     dialogDelete: false,
@@ -369,8 +366,8 @@ export default {
   }),
   computed: {
     seachMember: function () {
-      return this.team.members.filter((member) => {
-        return member.name.toLowerCase().includes(this.seach.toLowerCase());
+      return this.employees.filter((member) => {
+        return (member.firstname+" "+member.lastname).toLowerCase().includes(this.seach.toLowerCase());
       });
     },
   },
@@ -428,10 +425,12 @@ export default {
       console.log(this.team.members);
     },
   },
-  mounted() {
+  async mounted() {
     this.team = this.$store.state.teams.find(
-      (team) => team.id == this.$route.params.id
-    );
+      (team) => team.team_id == this.$route.params.id);
+    const response = await axios.get("/employee/list?id=" + this.$route.params.id);
+    this.employees = response.data.employees;
+    console.log(response.data.employees);
   },
 };
 </script>

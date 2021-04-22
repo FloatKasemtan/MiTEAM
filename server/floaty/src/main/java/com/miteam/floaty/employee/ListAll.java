@@ -23,9 +23,8 @@ public class ListAll {
     public Map<String, Object> list(HttpServletRequest req){
         Map<String, Object> res = new HashMap<>();
         String token = req.getHeader("Authorization");
-        System.out.println(token);
-        String owner = JwtUtil.parseToken(token.split(" ")[1]);
         try  {
+            String owner = JwtUtil.parseToken(token.split(" ")[1]);
             Connection connection = SQLconnector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee,team WHERE team.owner = ? AND employee.team_id = team.team_id");
             preparedStatement.setString(1,owner);
