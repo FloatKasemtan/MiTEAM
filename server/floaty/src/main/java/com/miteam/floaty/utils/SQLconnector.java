@@ -17,7 +17,7 @@ public class SQLconnector {
     }
 
     public static Connection getConnection() throws SQLException {
-        if (connection == null)
+        if (!connection.isValid(200))
             reconnect();
         return connection;
     }

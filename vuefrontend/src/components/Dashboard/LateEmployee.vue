@@ -7,20 +7,17 @@
       :headers="headers"
       :items="this.$store.state.employees"
       :search="search"
+      :sort-by="['check_in']"
+      :sort-desc="[true]"
       :items-per-page="5"
       ><template #item.check_in="{ item }">
-        <v-chip :color="getColor(item.check_in)" dark>
-          {{ new Date(item.check_in).getHour() }}
+        <v-chip :color="getColorIn(item.check_in)" dark>
+          {{ getFormattedDate(item.check_in) }}
         </v-chip>
       </template>
       <template #item.check_out="{ item }">
-        <v-chip
-          :color="getColorOut(item.out)"
-          dark
-        >
-          {{ item.check_out }}0
-          <div v-if="item.out > 12.0">PM</div>
-          <div v-else>AM</div>
+        <v-chip :color="getColorOut(item.check_out)" dark>
+          {{ getFormattedDate(item.check_out) }}
         </v-chip>
       </template>
     </v-data-table>
@@ -28,33 +25,39 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data: () => ({
+    search: "",
     headers: [
       {
         text: "Team",
         align: "start",
         sortable: true,
-        value: "team",
+        value: "team_name",
       },
-      { text: "Name", value: "name" },
-      { text: "Contact", value: "contact" },
-      { text: "Check-in time", value: "in" },
-      { text: "Check-out time", value: "out" },
+      { text: "Firstname", value: "firstname" },
+      { text: "Lastname", value: "lastname" },
+      { text: "Contact", value: "email" },
+      { text: "Check-in time", value: "check_in" },
+      { text: "Check-out time", value: "check_out" },
     ],
   }),
   methods: {
-    getColorOut(date) {
-      time = new Date(date)
-      if (time < 17.0) return "orange";
-      else if (time < 19) return "gray";
-      else return "green";
+    getFormattedDate(time) {
+      return moment(time).format("LT");
+    },
+    getColorIn(time) {
+      if (moment(time).hour() < 9) return "green";
+      else if (moment(time).hour() < 11) return "orange";
+      else return "gray";
+    },
+    getColorOut(time) {
+      if (moment(time).hour() < 17) return "orange";
+      else if (moment(time).hour() < 19) return "green";
+      else return "blue";
     },
   },
-  mounted(){
-    console.log(new Date(this.$store.state.employees[0].check_in))
-    console.log(new Date(1619121493000))
-  }
 };
 </script>
 

@@ -26,7 +26,7 @@ public class ListEvent {
         String owner = JwtUtil.parseToken(token.split(" ")[1]);
         try  {
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM event WHERE owner = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM event,team WHERE team.owner = ? AND event.team_id = team.team_id");
             preparedStatement.setString(1,owner);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> events = new ArrayList<>();
@@ -34,10 +34,11 @@ public class ListEvent {
                 Map<String, Object> event = new HashMap<>();
                 event.put("event_id", resultSet.getInt("event_id"));
                 event.put("team_id", resultSet.getInt("team_id"));
+                event.put("team_name", resultSet.getString("team.name"));
                 event.put("deadline", resultSet.getDate("deadline"));
                 event.put("is_finish", resultSet.getBoolean("is_finish"));
                 event.put("start_time", resultSet.getDate("start_time"));
-                event.put("name", resultSet.getString("name"));
+                event.put("name", resultSet.getString("event.name"));
                 events.add(event);
             }
             res.put("events", events);

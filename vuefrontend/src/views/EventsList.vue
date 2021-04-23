@@ -50,7 +50,7 @@
             </template>
             <v-list>
               <v-list-item
-                v-for="(item, index) in items"
+                v-for="(item, index) in this.$store.state.teams.map((team) => team.name)"
                 :key="index"
                 link
                 @click="assignTeam = item"
@@ -84,29 +84,29 @@
           transition="fade-transition"
         >
           <v-card
-            @click="event.finish = !event.finish"
+            @click="changeStatus(event.event_id)"
             width="80vw"
             class="ma-5 eventItem"
-            :class="[event.finish ? 'finish' : 'unfinish']"
+            :class="[event.is_finish ? 'finish' : 'unfinish']"
           >
             <v-row>
               <v-col>
                 <v-card-title>{{ event.name }}</v-card-title
                 ><v-card-subtitle
-                  >Start from {{ event.startDate }}</v-card-subtitle
+                  >Start from {{ getFormattedDate(event.start_time) }}</v-card-subtitle
                 >
               </v-col>
               <v-col
                 ><v-card-title>Deadline</v-card-title
-                ><v-card-subtitle>{{ event.deadLine }}</v-card-subtitle></v-col
+                ><v-card-subtitle>{{ getFormattedDate(event.deadline) }}</v-card-subtitle></v-col
               >
               <v-col
                 ><v-card-title>Team</v-card-title>
-                <v-card-subtitle>{{ event.Team }}</v-card-subtitle>
+                <v-card-subtitle>{{ event.team_name }}</v-card-subtitle>
               </v-col>
               <v-col>
                 <v-card-title>Status</v-card-title
-                ><v-card-subtitle v-if="event.finish">Finish</v-card-subtitle>
+                ><v-card-subtitle v-if="event.is_finish">Finish</v-card-subtitle>
                 <v-card-subtitle v-else>Unfinish</v-card-subtitle>
               </v-col>
               <v-card-actions class="mb-4">
@@ -130,15 +130,16 @@
 </template>
 
 <script>
+import axios from "@/axios/axios";
 import Header from "../components/Header";
-import data from "@/store/index";
+import moment from 'moment'
 export default {
   components: {
     Header,
   },
   data: (vm) => ({
     pageName: "Events",
-    items: data.state.teams.map((team) => team.name),
+    items: [],
     valid: false,
     date: new Date().toISOString().substr(0, 10),
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
@@ -148,6 +149,7 @@ export default {
   }),
   computed: {
     computedDateFormatted() {
+      
       return this.formatDate(this.date);
     },
     sortedItems: function () {
@@ -165,6 +167,13 @@ export default {
   },
 
   methods: {
+    async changeStatus(id){
+      window.location.reload();
+      await axios.put('/event/update?id='+id);
+    },
+    getFormattedDate(time) {
+      return moment(time).format("LL");
+    },
     deleteEvent(name) {
       this.checked = name;
       this.$store.state.events = this.$store.state.events.filter(
@@ -198,6 +207,8 @@ export default {
   },
   mounted(){
     this.$store.dispatch('loadEventData');
+    this.$store.dispatch('loadTeamData');
+    
   }
 };
 </script>

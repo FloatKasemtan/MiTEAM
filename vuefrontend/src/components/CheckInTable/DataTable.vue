@@ -1,55 +1,25 @@
 <template>
   <v-data-table
+    height="80vh"
     :headers="headers"
-    :items="employee"
+    :items="this.$store.state.employees"
     :search="search"
     :items-per-page="15"
-    ><template #item.in="{ item }">
-      <v-chip v-if="item.in % 1 == 0" :color="getColor(item.in)" dark>
-        {{ item.in }}.00
-        <div v-if="item.in > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip
-        v-else-if="(item.in * 10) % 1 == 0"
-        :color="getColor(item.in)"
-        dark
-      >
-        {{ item.in }}0
-        <div v-if="item.in > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip v-else :color="getColor(item.in)" dark>
-        {{ item.in }}
-        <div v-if="item.in > 12.0">PM</div>
-        <div v-else>AM</div>
+    ><template #item.check_in="{ item }">
+      <v-chip :color="getColorIn(item.check_in)" dark>
+        {{ getFormattedDate(item.check_in) }}
       </v-chip>
     </template>
-    <template #item.out="{ item }">
-      <v-chip v-if="item.out % 1 == 0" :color="getColorOut(item.out)" dark>
-        {{ item.out }}.00
-        <div v-if="item.out < 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip
-        v-else-if="(item.out * 10) % 1 == 0"
-        :color="getColorOut(item.out)"
-        dark
-      >
-        {{ item.out }}0
-        <div v-if="item.out > 12.0">PM</div>
-        <div v-else>AM</div>
-      </v-chip>
-      <v-chip v-else :color="getColorOut(item.out)" dark>
-        {{ item.out }}
-        <div v-if="item.out > 12.0">PM</div>
-        <div v-else>AM</div>
+    <template #item.check_out="{ item }">
+      <v-chip :color="getColorOut(item.check_out)" dark>
+        {{ getFormattedDate(item.check_out) }}
       </v-chip>
     </template>
   </v-data-table>
 </template>
 
 <script>
+import moment from "moment";
 export default {
   props: {
     headers: String,
@@ -57,14 +27,18 @@ export default {
     search: String,
   },
   methods: {
-    getColor(time) {
-      if (time > 9) return "orange";
-      else return "green";
+    getFormattedDate(time) {
+      return moment(time).format("LT");
+    },
+    getColorIn(time) {
+      if (moment(time).hour() < 9) return "green";
+      else if (moment(time).hour() < 11) return "orange";
+      else return "gray";
     },
     getColorOut(time) {
-      if (time < 17.0) return "orange";
-      else if (time < 19) return "gray";
-      else return "green";
+      if (moment(time).hour() < 17) return "orange";
+      else if (moment(time).hour() < 19) return "green";
+      else return "blue";
     },
   },
 };

@@ -5,6 +5,7 @@ import com.miteam.floaty.utils.SQLconnector;
 import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,7 @@ public class ListAll {
             while (resultSet.next()) {
                 Map<String, Object> employee = new HashMap<>();
                 employee.put("team_id", resultSet.getInt("team_id"));
+                employee.put("team_name", resultSet.getString("name"));
                 employee.put("firstname", resultSet.getString("firstname"));
                 employee.put("lastname", resultSet.getString("lastname"));
                 employee.put("image", resultSet.getString("image"));

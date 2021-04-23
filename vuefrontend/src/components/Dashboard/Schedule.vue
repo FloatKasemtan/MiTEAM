@@ -12,7 +12,7 @@
             <strong class="dayHead">{{ message.name }}</strong>
           </h2>
 
-          <h5>Team : {{ message.Team }} <br> <div :class="getDateLeft(message.deadLine)=='Late' ? 'late':'' ">Time : {{ getDateLeft(message.deadLine) }}</div></h5>
+          <h5>Team : {{ message.team_name }} <br> <div>{{getDateLeft(message.deadline)}}</div></h5>
         </div>
       </v-timeline-item>
     </v-timeline>
@@ -20,26 +20,19 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   computed: {
     sortedItems: function () {
       this.$store.state.events.sort((a, b) => {
-        return new Date(a.deadLine) - new Date(b.deadLine);
+        return new Date(a.deadline) - new Date(b.deadline);
       });
       return this.$store.state.events.slice(0, 3);
     },
   },
   methods: {
-    getDateLeft(v) {
-      var day1 = new Date();
-      var day2 = new Date(v);
-
-      var difference = day2 - day1;
-      var days = difference / (1000 * 3600 * 24);
-      if(days<0){
-          return "Late"
-      }
-      return Math.round(days) + ' day remaining';
+    getDateLeft(deadline) {
+      return moment(deadline).fromNow();
     },
   },
 };
