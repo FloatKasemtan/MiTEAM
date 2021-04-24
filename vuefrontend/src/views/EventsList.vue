@@ -50,7 +50,9 @@
             </template>
             <v-list>
               <v-list-item
-                v-for="(item, index) in this.$store.state.teams.map((team) => team.name)"
+                v-for="(item, index) in this.$store.state.teams.map(
+                  (team) => team.name
+                )"
                 :key="index"
                 link
                 @click="assignTeam = item"
@@ -93,12 +95,15 @@
               <v-col>
                 <v-card-title>{{ event.name }}</v-card-title
                 ><v-card-subtitle
-                  >Start from {{ getFormattedDate(event.start_time) }}</v-card-subtitle
+                  >Start from
+                  {{ getFormattedDate(event.start_time) }}</v-card-subtitle
                 >
               </v-col>
               <v-col
                 ><v-card-title>Deadline</v-card-title
-                ><v-card-subtitle>{{ getFormattedDate(event.deadline) }}</v-card-subtitle></v-col
+                ><v-card-subtitle>{{
+                  getFormattedDate(event.deadline)
+                }}</v-card-subtitle></v-col
               >
               <v-col
                 ><v-card-title>Team</v-card-title>
@@ -106,7 +111,9 @@
               </v-col>
               <v-col>
                 <v-card-title>Status</v-card-title
-                ><v-card-subtitle v-if="event.is_finish">Finish</v-card-subtitle>
+                ><v-card-subtitle v-if="event.is_finish"
+                  >Finish</v-card-subtitle
+                >
                 <v-card-subtitle v-else>Unfinish</v-card-subtitle>
               </v-col>
               <v-card-actions class="mb-4">
@@ -114,7 +121,7 @@
                   <v-btn
                     text
                     depressed
-                    @click="deleteEvent(event.name)"
+                    @click="deleteEvent(event.event_id)"
                     color="error"
                   >
                     Delete
@@ -132,7 +139,7 @@
 <script>
 import axios from "@/axios/axios";
 import Header from "../components/Header";
-import moment from 'moment'
+import moment from "moment";
 export default {
   components: {
     Header,
@@ -149,12 +156,11 @@ export default {
   }),
   computed: {
     computedDateFormatted() {
-      
       return this.formatDate(this.date);
     },
     sortedItems: function () {
       this.$store.state.events.sort((a, b) => {
-        return new Date(a.deadLine) - new Date(b.deadLine);
+        return new Date(a.deadline) - new Date(b.deadline);
       });
       return this.$store.state.events;
     },
@@ -167,19 +173,10 @@ export default {
   },
 
   methods: {
-    async changeStatus(id){
-      window.location.reload();
-      await axios.put('/event/update?id='+id);
-    },
     getFormattedDate(time) {
       return moment(time).format("LL");
     },
-    deleteEvent(name) {
-      this.checked = name;
-      this.$store.state.events = this.$store.state.events.filter(
-        (el) => el.name != this.checked
-      );
-    },
+
     formatDate(date) {
       if (!date) return null;
 
@@ -192,24 +189,33 @@ export default {
       const [month, day, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
-    addEvent() {
-      if (this.event == "") {
-      } else {
-        this.$store.state.events.push({
-          name: this.event,
-          startDate: new Date().toISOString().substr(0, 10),
-          deadLine: this.dateFormatted,
-          Team: this.assignTeam,
-          finish: false,
-        });
-      }
+    async addEvent() {
+      console.log(Date.parse(this.date));
+      await axios.post(
+        "/event/insert?name=" +
+          this.event +
+          "&start=" +
+          Date.parse(new Date().toISOString().substr(0, 10)) +
+          "&deadline=" +
+          Date.parse(this.dateFormatted) +
+          "&team_name=" +
+          this.assignTeam
+      );
+      location.reload();
+    },
+    async changeStatus(id) {
+      window.location.reload();
+      await axios.put("/event/update?id=" + id);
+    },
+    async deleteEvent(id) {
+      await axios.delete("/event/delete?id=" + id);
+      location.reload();
     },
   },
-  mounted(){
-    this.$store.dispatch('loadEventData');
-    this.$store.dispatch('loadTeamData');
-    
-  }
+  mounted() {
+    this.$store.dispatch("loadEventData");
+    this.$store.dispatch("loadTeamData");
+  },
 };
 </script>
 

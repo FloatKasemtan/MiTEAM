@@ -5,7 +5,7 @@
       <v-timeline-item
         v-for="message in sortedItems"
         :key="message.name"
-        :color="message.finish ? 'green' : 'red'"
+        :color="message.is_finish ? 'green' : 'red'"
       >
         <div class="ml-10">
           <h2 class="day">

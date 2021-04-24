@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import axios from "@/axios/axios";
 export default {
   data: () => ({
     addInput: "",
@@ -48,20 +49,30 @@ export default {
     warning: Boolean,
   },
   methods: {
-    addTeam: function () {
+    async addEvent() {
+      console.log(Date.parse(this.date));
+      await axios.post(
+        "/event/insert?name=" +
+          this.event +
+          "&start=" +
+          Date.parse(new Date().toISOString().substr(0, 10)) +
+          "&deadline=" +
+          Date.parse(this.dateFormatted) +
+          "&team_name=" +
+          this.assignTeam
+      );
+      location.reload();
+    },
+    async addTeam() {
       if (this.addInput === "") {
         this.$emit("closeDialog");
         this.$emit("cloaseWarning");
       } else {
-        this.$store.state.teams.push({
-          id: ++this.currentId,
-          name: this.addInput,
-          members: [],
-          progress: null,
-          img: this.addImg,
-        });
+        await axios.post("/team/insert?name=" + this.addInput + "&image=" + this.addImg);
         this.addInput = "";
+        this.addImg = "";
         this.$emit("closeDialog");
+        location.reload();
       }
     },
   },
