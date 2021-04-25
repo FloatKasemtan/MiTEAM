@@ -12,6 +12,23 @@
         clearable
         clear-icon="mdi-close-circle"
       ></v-text-field>
+      <div class="ml-7 d-flex">
+        <v-text-field
+          class="mr-3"
+          v-model="firstname"
+          :rules="firstRules"
+          label="Firstname"
+          required
+          color="#31517d"
+        ></v-text-field>
+        <v-text-field
+          v-model="lastname"
+          :rules="lastRules"
+          label="Lastname"
+          required
+          color="#31517d"
+        ></v-text-field>
+      </div>
       <v-text-field
         v-model="email"
         :rules="emailRules"
@@ -23,48 +40,33 @@
         clearable
         clear-icon="mdi-close-circle"
       ></v-text-field>
+      <div class="d-flex">
+        <v-text-field
+          v-model="passwordRegis"
+          :rules="passRules"
+          prepend-icon="mdi-key"
+          label="password"
+          required
+          color="#31517d"
+          class="my-3 mr-3"
+          :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPass ? 'text' : 'password'"
+          @click:append="showPass = !showPass"
+        ></v-text-field>
+        <v-text-field
+          v-model="repassword"
+          :rules="passRules"
+          label="re enter password"
+          required
+          color="#31517d"
+          class="my-3"
+          :type="'password'"
+        ></v-text-field>
+      </div>
 
       <v-text-field
-        v-model="passwordRegis"
-        :rules="passRules"
-        prepend-icon="mdi-key"
-        label="password"
-        required
-        color="#31517d"
-        class="my-3"
-        :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="showPass ? 'text' : 'password'"
-        @click:append="showPass = !showPass"
-      ></v-text-field>
-      <v-text-field
-        v-model="repassword"
-        :rules="passRules"
-        prepend-icon="mdi-key"
-        label="re enter password"
-        required
-        color="#31517d"
-        class="my-3"
-        :type="'password'"
-      ></v-text-field>
-      <v-text-field
-        v-model="firstname"
-        :rules="firstRules"
-        prepend-icon="mdi-key"
-        label="Firstname"
-        required
-        color="#31517d"
-      ></v-text-field>
-      <v-text-field
-        v-model="lastname"
-        :rules="lastRules"
-        prepend-icon="mdi-key"
-        label="Lastname"
-        required
-        color="#31517d"
-      ></v-text-field>
-      <v-text-field
         v-model="image"
-        prepend-icon="mdi-key"
+        prepend-icon="mdi-camera"
         label="Image URL"
         required
         color="#31517d"

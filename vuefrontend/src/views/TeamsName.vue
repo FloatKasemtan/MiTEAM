@@ -28,15 +28,12 @@
 </template>
 
 <script>
-import Header from "../components/Header";
-import Teamslist from "../components/TeamsName/TeamsList";
-import Dialog from "../components/TeamsName/Dialog";
 export default {
   name: "TeamsName",
   components: {
-    Header,
-    Teamslist,
-    Dialog,
+    Header: () => import("../components/Header"),
+    Teamslist: () => import("../components/TeamsName/TeamsList"),
+    Dialog: () => import("../components/TeamsName/Dialog"),
   },
 
   data: () => ({

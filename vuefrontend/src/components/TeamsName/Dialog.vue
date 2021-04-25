@@ -49,20 +49,6 @@ export default {
     warning: Boolean,
   },
   methods: {
-    async addEvent() {
-      console.log(Date.parse(this.date));
-      await axios.post(
-        "/event/insert?name=" +
-          this.event +
-          "&start=" +
-          Date.parse(new Date().toISOString().substr(0, 10)) +
-          "&deadline=" +
-          Date.parse(this.dateFormatted) +
-          "&team_name=" +
-          this.assignTeam
-      );
-      location.reload();
-    },
     async addTeam() {
       if (this.addInput === "") {
         this.$emit("closeDialog");

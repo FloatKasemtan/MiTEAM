@@ -16,14 +16,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
-public class List {
-    @GetMapping(path = "/list")
+public class ListManager {
+    @GetMapping(path = "/listManager")
     public Map<String, Object> list(@RequestParam int id){
         Map<String, Object> res = new HashMap<>();
         try  {
 
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE team_id = ? AND is_manager = 0");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE team_id = ? AND is_manager = 1");
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> employees = new ArrayList<>();
