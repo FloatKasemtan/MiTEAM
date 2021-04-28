@@ -45,14 +45,14 @@
           <v-col cols="12" md="4"
             ><v-slider
               class="mt-5 ml-7"
-              v-model="this.team.progress"
+              v-model="progress"
               label="Work Progress"
-              track-color="green lighten-1"
+              :color="color"
               thumb-label="always"
             ></v-slider
           ></v-col>
           <v-col
-            ><v-btn icon color="green">
+            ><v-btn icon color="green" @click="updateProgress()">
               <v-icon>mdi-cached</v-icon>
             </v-btn></v-col
           >
@@ -62,15 +62,22 @@
         :statusItems="statusItems"
         :managers="managers"
         :seachMember="seachMember"
+        @warning="warning = true"
       />
 
-      <v-dialog v-model="editTeamName" max-width="500px">
+      <v-dialog v-model="editTeamDialog" max-width="500px">
         <v-card>
           <v-card-text class="pa-5">
             <h1>Edit Team</h1>
             <v-text-field
               label="Team Name"
-              v-model="editedTeam"
+              v-model="edit_teamName"
+              color="#31517d"
+            >
+            </v-text-field>
+            <v-text-field
+              label="Image Url"
+              v-model="edit_image"
               color="#31517d"
             >
             </v-text-field>
@@ -80,10 +87,34 @@
               Comfirm Edit
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn text depressed color="error"> Delete </v-btn>
+            <v-btn
+              @click="deleteTeamDialog = !deleteTeamDialog"
+              text
+              depressed
+              color="error"
+            >
+              Delete
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog v-model="deleteTeamDialog" max-width="550px">
+        <v-card>
+          <v-card-title class="headline"
+            >Are you sure you want to delete this team?</v-card-title
+          >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="deleteTeamDialog = false"
+              >Cancel</v-btn
+            >
+            <v-btn color="red darken-1" text @click="comfirmDelete()">OK</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-dialog v-model="dialog" max-width="500px">
         <v-card>
           <v-card-text>
@@ -168,7 +199,6 @@
 
 <script>
 import axios from "@/axios/axios";
-import qs from "qs";
 export default {
   components: {
     EmployeeList: () => import("../components/WorkerInfo/EmployeeList"),
@@ -176,14 +206,17 @@ export default {
   name: "TeamsName",
   data: () => ({
     team: null,
+    progress: null,
     dialog: false,
     managers: [],
     employees: [],
-    editTeamName: false,
+    editTeamDialog: false,
+    deleteTeamDialog: false,
     warning: false,
     seach: "",
     statusItems: ["Worker", "Intern Student", "Part-Time"],
-    editedTeam: "",
+    edit_teamName: null,
+    edit_image: null,
     addMember: {
       fname: "",
       lname: "",
@@ -202,11 +235,18 @@ export default {
           .includes(this.seach.toLowerCase());
       });
     },
+    color() {
+      if (this.progress < 35) return "orange";
+      if (this.progress < 80) return "teal";
+      return "green";
+    },
   },
   methods: {
     async add() {
       if (
-        this.addMember.name === "" ||
+        this.addMember.fname === "" ||
+        this.addMember.lname === "" ||
+        this.addMember.email === "" ||
         this.addMember.salary === "" ||
         this.addMember.status === ""
       ) {
@@ -214,30 +254,52 @@ export default {
         this.warning = true;
       } else {
         this.dialog = false;
-        await axios.post(
-          "/employee/insert",
-          qs.stringify({
-            fname: this.addMember.fname,
-            lname: this.addMember.lname,
-            image: this.addMember.image,
-            salary: this.addMember.salary,
-            status: this.addMember.status,
-            email: this.addMember.email,
-            is_manager: this.addMember.is_manager,
-            team_id: this.$route.params.id,
-          })
-        );
+        await axios.post("/employee/insert", {
+          fname: this.addMember.fname,
+          lname: this.addMember.lname,
+          image: this.addMember.image,
+          salary: this.addMember.salary,
+          status: this.addMember.status,
+          email: this.addMember.email,
+          is_manager: this.addMember.is_manager,
+          team_id: this.$route.params.id,
+        });
         location.reload();
       }
     },
-
-    editTeam() {
-      this.editTeamName = true;
-      this.editedTeam = this.team.name;
+    async updateProgress() {
+      const response = await axios.put(
+        "/team/updateProgress?progress=" +
+          this.progress +
+          "&id=" +
+          this.$route.params.id
+      );
+      console.log(response.data, this.$route.params.id, this.progress);
     },
-    confirmEditTeam() {
-      this.editTeamName = false;
-      this.team.name = this.editedTeam;
+    editTeam() {
+      this.editTeamDialog = true;
+      this.edit_teamName = this.team.name;
+      this.edit_image = this.team.image;
+    },
+    async confirmEditTeam() {
+      this.editTeamDialog = false;
+      const response = await axios.put(
+        "/team/update?name=" +
+          this.edit_teamName +
+          "&id=" +
+          this.$route.params.id +
+          "&image=" +
+          this.edit_image
+      );
+      location.reload();
+    },
+
+    async comfirmDelete() {
+      this.editTeamDialog = false;
+      const response = await axios.delete(
+        "/team/delete?id=" + this.$route.params.id
+      );
+      location.href = "/team";
     },
   },
   async mounted() {
@@ -248,12 +310,12 @@ export default {
     const response = await axios.get(
       "/employee/list?id=" + this.$route.params.id
     );
-    this.employees = response.data.employees;
+    this.employees = await response.data.employees;
     const manager = await axios.get(
       "/employee/listManager?id=" + this.$route.params.id
     );
-    this.managers = manager.data.employees;
-    console.log(manager.data.employees);
+    this.managers = await manager.data.employees;
+    this.progress = await this.team.progress;
   },
 };
 </script>
