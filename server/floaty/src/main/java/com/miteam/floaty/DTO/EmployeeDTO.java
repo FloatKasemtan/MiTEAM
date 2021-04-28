@@ -1,5 +1,7 @@
 package com.miteam.floaty.DTO;
 
+import java.sql.Date;
+
 public class EmployeeDTO {
     private String fname;
     private String lname;
@@ -10,6 +12,15 @@ public class EmployeeDTO {
     private boolean is_manager;
     private int employee_id;
     private int team_id;
+    private long hire_since;
+
+    public long getHire_since() {
+        return hire_since;
+    }
+
+    public void setHire_since(long hire_since) {
+        this.hire_since = hire_since;
+    }
 
     public String getFname() {
         return fname;

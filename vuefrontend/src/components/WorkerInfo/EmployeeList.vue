@@ -51,6 +51,10 @@
                 <v-list-item-subtitle
                   >Contact : {{ manager.email }}</v-list-item-subtitle
                 >
+                <v-list-item-subtitle
+                >Work for :
+                {{ getDay(manager.hire_since) }}</v-list-item-subtitle
+              >
               </v-list-item-content>
             </v-list-item>
 
@@ -118,6 +122,10 @@
               >
               <v-list-item-subtitle
                 >Contact : {{ member.email }}</v-list-item-subtitle
+              >
+              <v-list-item-subtitle
+                >Work for :
+                {{ getDay(member.hire_since) }}</v-list-item-subtitle
               >
             </v-list-item-content>
           </v-list-item>
@@ -233,6 +241,7 @@
 
 <script>
 import axios from "@/axios/axios";
+import moment from 'moment';
 export default {
   props: {
     seachMember: Object,
@@ -252,7 +261,7 @@ export default {
       email: "",
       is_manager: Boolean,
     },
-    deleteIndex: '',
+    deleteIndex: "",
   }),
   methods: {
     deleteItem(id) {
@@ -260,7 +269,9 @@ export default {
       this.deleteIndex = id;
     },
     async comfirmDelete() {
-      const response = await axios.delete("/employee/delete?id="+this.deleteIndex);
+      const response = await axios.delete(
+        "/employee/delete?id=" + this.deleteIndex
+      );
       this.dialogDelete = false;
       location.reload();
     },
@@ -293,6 +304,9 @@ export default {
         console.log(response);
         location.reload();
       }
+    },
+    getDay(time) {
+      return moment(time).fromNow();
     },
   },
 };

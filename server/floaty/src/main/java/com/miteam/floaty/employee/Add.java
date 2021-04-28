@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class Add {
         Map<String, Object> res = new HashMap<>();
         try {
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO employee (firstname, lastname, image, salary, status, email, is_manager, team_id)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO employee (firstname, lastname, image, salary, status, email, is_manager, team_id, hire_since)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             preparedStatement.setString(1, member.getFname());
             preparedStatement.setString(2, member.getLname());
@@ -28,7 +29,7 @@ public class Add {
             preparedStatement.setString(6, member.getEmail());
             preparedStatement.setBoolean(7, member.isIs_manager());
             preparedStatement.setInt(8, member.getTeam_id());
-
+            preparedStatement.setTimestamp(9, new Timestamp(member.getHire_since()));
             preparedStatement.executeUpdate();
             res.put("SUCCESS", true);
         } catch (Exception e) {

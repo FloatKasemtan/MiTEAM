@@ -37,6 +37,7 @@ public class ListManager {
                 employee.put("status", resultSet.getString("status"));
                 employee.put("email", resultSet.getString("email"));
                 employee.put("is_manager", resultSet.getBoolean("is_manager"));
+                employee.put("hire_since", resultSet.getTimestamp("hire_since"));
                 employees.add(employee);
             }
             res.put("employees", employees);
