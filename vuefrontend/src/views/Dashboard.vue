@@ -49,6 +49,7 @@ export default {
     this.$store.dispatch("loadEmployeesData");
     this.$store.dispatch('loadTeamData');
     this.$store.dispatch('loadEventData');
+    this.$store.dispatch('loadOTimerData');
   },
 };
 </script>

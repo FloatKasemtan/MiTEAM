@@ -68,7 +68,6 @@ import axios from "@/axios/axios";
 import VueCookies from "vue-cookies";
 import Vue from "vue";
 
-Vue.use(VueCookies);
 export default {
   data() {
     return {

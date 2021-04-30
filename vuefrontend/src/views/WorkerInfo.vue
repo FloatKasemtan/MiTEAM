@@ -305,7 +305,7 @@ export default {
     },
   },
   async mounted() {
-    console.log(Date.now())
+    console.log(Date.now()) 
     await this.$store.dispatch("loadTeamData");
     this.team = this.$store.state.teams.find(
       (team) => team.team_id == this.$route.params.id

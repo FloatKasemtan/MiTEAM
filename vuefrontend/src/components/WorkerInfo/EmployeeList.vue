@@ -52,7 +52,7 @@
                   >Contact : {{ manager.email }}</v-list-item-subtitle
                 >
                 <v-list-item-subtitle
-                >Work for :
+                >Work Period :
                 {{ getDay(manager.hire_since) }}</v-list-item-subtitle
               >
               </v-list-item-content>
@@ -124,7 +124,7 @@
                 >Contact : {{ member.email }}</v-list-item-subtitle
               >
               <v-list-item-subtitle
-                >Work for :
+                >Work Period : 
                 {{ getDay(member.hire_since) }}</v-list-item-subtitle
               >
             </v-list-item-content>
