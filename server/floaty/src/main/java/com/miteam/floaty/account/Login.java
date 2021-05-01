@@ -41,7 +41,6 @@ public class Login {
                 res.put("userDetail", userDetail);
                 res.put("loginStatus", true);
                 String owner = JwtUtil.parseToken(token);
-                System.out.println(owner);
                 res.put("owner", owner);
             } else {
                 res.put("loginStatus", false);

@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-xl" color="#f6f6f6">
     <v-card-title class="ml-8 dash-topic">Up coming Schedule</v-card-title>
-    <v-timeline  class="ml-10" dense style="">
+    <v-timeline  class="ml-10" dense>
       <v-timeline-item
         v-for="message in sortedItems"
         :key="message.name"
