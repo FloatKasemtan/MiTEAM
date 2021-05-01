@@ -23,7 +23,6 @@ public class Login {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?");
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPass());
-            System.out.println(user.getUsername() + user.getPass());
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 String token = JwtUtil.generateToken(rs.getString("username") + "");

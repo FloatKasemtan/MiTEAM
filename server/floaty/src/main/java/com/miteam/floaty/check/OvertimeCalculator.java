@@ -61,8 +61,7 @@ public class OvertimeCalculator {
                     employee.put("email", rs.getString("email"));
                 }
 
-                it.remove(); // avoids a ConcurrentModificationException
-//SQL ไปดึงข้อมูล emp คนนั้น
+                it.remove();
                 employee.put("ot",ot);
                 employees.add(employee);
             }

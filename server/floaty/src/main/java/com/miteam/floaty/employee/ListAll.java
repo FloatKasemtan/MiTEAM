@@ -28,7 +28,6 @@ public class ListAll {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee,team,check_in WHERE team.owner = ? AND employee.team_id = team.team_id AND check_in.employee_id = employee.employee_id AND check_in_time >= ?");
             preparedStatement.setString(1,owner);
             preparedStatement.setTimestamp(2,new Timestamp(thisDate-25200000));
-            System.out.println(new Timestamp(thisDate-25200000).getTime());
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> employees = new ArrayList<>();
             while (resultSet.next()) {
