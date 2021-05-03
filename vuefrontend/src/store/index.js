@@ -12,7 +12,7 @@ export default new Vuex.Store({
         lateEmployee: [],
         OTEmployee: [],
         items: [],
-        testGIt: "sdas"
+        testGIt: "sdass"
     },
     getters: {
 
