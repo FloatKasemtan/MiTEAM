@@ -52,7 +52,7 @@ export default new Vuex.Store({
         async loadOTimerData({ commit }) {
             var m = new Date().getMonth();
             var y = new Date().getFullYear();
-            const response = await axios.get('/check/ot?currentMonth=' + y + "-" + (m + 1) + "-1&nextMonth=" + y + "-" + (m + 1) + "-31");
+            const response = await axios.get('/check/ot?currentMonth=' + y + "-" + (m + 1) + "-1&nextMonth=" + y + "-" + (m + 1) + "-30");
             commit("SET_OT", response);
             console.log(response.data);
         }
