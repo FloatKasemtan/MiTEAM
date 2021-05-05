@@ -24,6 +24,8 @@
             :emailRules="emailRules"
             @passMatch="passMatch = true"
             @regisSuccess="regisSuccess = true"
+            @emailUsed="emailUsed = true"
+            @fatalError="fatalError = true"
           />
         </v-tab-item>
       </v-tabs-items>
@@ -51,6 +53,16 @@
         >Register Successful!</v-alert
       >
     </v-dialog>
+    <v-dialog v-model="emailUsed" width="300px">
+      <v-alert type="warning" elevation="10" class="mb-0" border="bottom"
+        >This email already been used!</v-alert
+      >
+    </v-dialog>
+    <v-dialog v-model="fatalError" width="300px">
+      <v-alert type="error" elevation="10" class="mb-0" border="bottom"
+        >Register error!</v-alert
+      >
+    </v-dialog>
   </div>
 </template>
 
@@ -69,13 +81,18 @@ export default {
     passMatch: false,
     showPass: false,
     regisSuccess: false,
+    fatalError: false,
+    emailUsed: false,
     tab: null,
     nameRules: [
       (v) => !!v || "username is required",
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
     passRules: [(v) => !!v || "password is required"],
-    emailRules: [(v) => !!v || "E-mail is required"],
+    emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
   }),
   mounted(){
     

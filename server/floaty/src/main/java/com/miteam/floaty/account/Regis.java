@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,9 @@ public class Regis {
 
             preparedStatement.executeUpdate();
             res.put("SUCCESS", true);
+        }catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+            res.put("SUCCESS", "Email already used");
         }
         catch (Exception e)
         {

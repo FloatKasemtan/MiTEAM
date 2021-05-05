@@ -37,19 +37,17 @@
               >{{ user.firstname }} {{ user.lastname }}</v-list-item-title
             >
 
-            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
-            <v-list-item-subtitle
-              ><v-btn
+            <span style="color: #00e676"
+              >Logged In<v-btn
                 @click="dialog = !dialog"
                 color="white"
                 height="23px"
                 plain
                 x-small
               >
-                <v-icon left> mdi-pencil </v-icon>
-                Edit
-              </v-btn>
-            </v-list-item-subtitle>
+                <v-icon left small class="ml-1 mb-1"> mdi-pencil </v-icon>
+              </v-btn></span
+            >
           </v-list-item-content>
         </v-list-item>
       </template>

@@ -73,7 +73,7 @@
                 outlined
                 rounded
                 color="white"
-                @click="deleteItem(editMember.employee_id)"
+                @click="deleteItem(manager.employee_id)"
               >
                 <v-icon>mdi-trash-can</v-icon>
               </v-btn>
@@ -301,7 +301,6 @@ export default {
           is_manager: this.editMember.is_manager,
           employee_id: this.editMember.employee_id,
         });
-        console.log(response);
         location.reload();
       }
     },

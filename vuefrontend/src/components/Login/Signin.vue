@@ -64,8 +64,6 @@ export default {
           pass: this.password,
         });
         Vue.$cookies.set("JWT", response.data.token);
-        console.log(response.data);
-        console.log(this.$store.state.userData);
         if (response.data.loginStatus) {
           // this.$router.push("/dashboard");
           location.href = "/dashboard";

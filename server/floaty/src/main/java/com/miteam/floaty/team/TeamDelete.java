@@ -23,7 +23,10 @@ public class TeamDelete {
             preparedStatement.setInt(1,id);
             PreparedStatement ps_Employee = connection.prepareStatement("DELETE FROM employee where team_id = ?");
             ps_Employee.setInt(1,id);
+            PreparedStatement ps_Event = connection.prepareStatement("DELETE FROM event where team_id = ?");
+            ps_Event.setInt(1,id);
             ps_Employee.executeUpdate();
+            ps_Event.executeUpdate();
             preparedStatement.executeUpdate();
 
             res.put("SUCCESS", true);

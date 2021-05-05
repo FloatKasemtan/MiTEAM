@@ -123,8 +123,13 @@ export default {
             lname: this.lastname,
             email: this.email,
           });
-          this.$emit("regisSuccess");
-          console.log(response.data);
+          if (response.data.SUCCESS == "Email already used") {
+            this.$emit("emailUsed");
+          } else if (response.data.SUCCESS == false) {
+            this.$emit("fatalError");
+          } else {
+            this.$emit("regisSuccess");
+          }
         } else {
           this.$emit("passMatch");
           this.passwordRegis = "";

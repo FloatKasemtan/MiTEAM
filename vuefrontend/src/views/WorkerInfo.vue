@@ -269,14 +269,12 @@ export default {
       }
     },
     async updateProgress() {
-      console.log(Date.parse(new Date()))
       const response = await axios.put(
         "/team/updateProgress?progress=" +
           this.progress +
           "&id=" +
           this.$route.params.id
       );
-      console.log(response.data, this.$route.params.id, this.progress);
     },
     editTeam() {
       this.editTeamDialog = true;
@@ -305,7 +303,6 @@ export default {
     },
   },
   async mounted() {
-    console.log(Date.now()) 
     await this.$store.dispatch("loadTeamData");
     this.team = this.$store.state.teams.find(
       (team) => team.team_id == this.$route.params.id
@@ -313,7 +310,6 @@ export default {
     const response = await axios.get(
       "/employee/list?id=" + this.$route.params.id
     );
-    console.log(response.data);
     this.employees = await response.data.employees;
     const manager = await axios.get(
       "/employee/listManager?id=" + this.$route.params.id

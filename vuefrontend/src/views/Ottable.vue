@@ -39,19 +39,23 @@ export default {
       pageName: "Overtime Worker",
       search: "",
       headers: [
-        {
-          text: "Team",
-          align: "start",
-          sortable: true,
-          value: "team",
-        },
-        { text: "Name", value: "name" },
-        { text: "Contact", value: "contact" },
-        { text: "OT done (hour)", value: "time" },
-      ],
-      //MockData for DataTable
+      {
+        text: "Team",
+        align: "start",
+        sortable: true,
+        value: "team_name",
+      },
+      { text: "Firstname", value: "firstname" },
+      { text: "Lastname", value: "lastname" },
+      { text: "Contact", value: "email" },
+      { text: "OT done (hour)", value: "ot" },
+    ],
+
       employee: this.$store.state.OTEmployee,
     };
+  },
+  mounted() {
+    this.$store.dispatch("loadOTimerData");
   },
 };
 </script>

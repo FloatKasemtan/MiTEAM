@@ -190,7 +190,6 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     async addEvent() {
-      console.log(Date.parse(this.date));
       await axios.post(
         "/event/insert?name=" +
           this.event +

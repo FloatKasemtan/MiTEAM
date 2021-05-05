@@ -7,7 +7,7 @@
       :headers="headers"
       :items="this.$store.state.OTEmployee"
       :search="search"
-      :sort-by="['time']"
+      :sort-by="['ot']"
       :sort-desc="[true]"
       :items-per-page="5"
     >

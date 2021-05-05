@@ -1,11 +1,12 @@
 <template>
   <v-data-table
-        :headers="headers"
-        :items="employee"
-        :search="search"
-        :items-per-page="15"
-      >
-      </v-data-table>
+  height="80vh"
+      :headers="headers"
+      :items="this.$store.state.OTEmployee"
+      :search="search"
+      :items-per-page="15"
+    >
+    </v-data-table>
 </template>
 
 <script>
