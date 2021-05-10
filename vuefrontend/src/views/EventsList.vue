@@ -138,11 +138,10 @@
 
 <script>
 import axios from "@/axios/axios";
-import Header from "../components/Header";
 import moment from "moment";
 export default {
   components: {
-    Header,
+    Header: () => import("../components/Header"),
   },
   data: (vm) => ({
     pageName: "Events",

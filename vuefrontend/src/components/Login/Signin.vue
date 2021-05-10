@@ -28,15 +28,18 @@
         @keyup.enter="validate"
       ></v-text-field>
     </v-form>
-    <v-btn
-      block
-      :disabled="!valid"
-      color="#31517D"
-      class="mr-4 rounded-xl white--text"
-      @click="validate"
-    >
-      SIGN IN
-    </v-btn>
+    <div>
+      <v-btn
+        block
+        :disabled="!valid"
+        color="#31517D"
+        class="mr-4 rounded-xl white--text"
+        @click="validate"
+      >
+        SIGN IN
+      </v-btn>
+      <a class="forgetLink" href="/forget">forget password?</a>
+    </div>
   </div>
 </template>
 
@@ -80,5 +83,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  .forgetLink{
+    float: right;
+    margin-top: 10px;
+  }
 </style>

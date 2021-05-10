@@ -5,7 +5,6 @@
         >Overall Work Progress of each team</v-card-title
       >
       <v-sparkline
-        :gradient="gradient"
         :labels="this.$store.state.teams.map((team) => team.progress + '%')"
         label-size="4"
         line-width="1px"
@@ -14,6 +13,7 @@
         color="#31517D"
         :value="this.$store.state.teams.map((team) => team.progress)"
         auto-draw
+        auto-draw-duration="1000"
       ></v-sparkline>
     </v-card>
   </div>

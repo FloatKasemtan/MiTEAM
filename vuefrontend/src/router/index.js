@@ -14,6 +14,15 @@ const routes = [{
         },
     },
     {
+        path: "/forget",
+        name: "forgetpassword",
+        component: () =>
+            import ("../views/ForgetPass.vue"),
+        meta: {
+            layout: "auth",
+        },
+    },
+    {
         path: "/dashboard",
         name: "Dashboard",
         component: () =>
@@ -51,6 +60,7 @@ const routes = [{
         component: () =>
             import ("../views/EventsList.vue"),
     },
+
 ];
 
 const router = new VueRouter({

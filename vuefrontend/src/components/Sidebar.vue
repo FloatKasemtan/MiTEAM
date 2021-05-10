@@ -52,7 +52,7 @@
         </v-list-item>
       </template>
       <v-list>
-        <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+        <v-list-item v-for="item in items" :key="item.title" :to="item.to" @click="location.reload();">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
