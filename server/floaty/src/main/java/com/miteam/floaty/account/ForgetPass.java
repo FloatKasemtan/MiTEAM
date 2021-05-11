@@ -45,8 +45,8 @@ public class ForgetPass {
                         res.put("id_reset", generatedKeys.getInt(1));
                         SimpleMailMessage msg = new SimpleMailMessage();
                         msg.setTo(email);
-                        msg.setFrom("chuxreataurant@patiphon.cf");
-                        msg.setSubject("Chuxrestaurant password reset token");
+                        msg.setFrom("kasemtan.kmutt@mail.kmutt.ac.th");
+                        msg.setSubject("MITEAM password reset token");
                         msg.setText("Your verification code is " + generatedString);
                         javaMailSender.send(msg);
                         res.put("success", true);

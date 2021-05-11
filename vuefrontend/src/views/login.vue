@@ -36,7 +36,7 @@
       elevation="0"
       class="d-flex align-center justify-center"
     >
-      <v-img src="../assets/animation_640.gif"></v-img>
+      <v-img src="@/images/animation_640.gif"></v-img>
     </v-card>
     <v-dialog v-model="wrongUser" width="300px">
       <v-alert type="error" elevation="10" class="mb-0" border="bottom"

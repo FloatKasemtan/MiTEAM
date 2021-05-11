@@ -14,7 +14,7 @@
             <v-img
               max-width="56"
               max-height="56"
-              src="../images/logo/logo2nd512.png"
+              src="@/images/logo/logo2nd512.png"
             ></v-img>
             <v-list-item-title>
               <v-list-item-title
