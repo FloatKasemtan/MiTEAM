@@ -10,6 +10,7 @@
       :sort-by="['check_in']"
       :sort-desc="[true]"
       :items-per-page="5"
+      height="30vh"
       ><template #item.check_in="{ item }">
         <v-chip :color="getColorIn(item.check_in)" dark>
           {{ getFormattedDate(item.check_in) }}
