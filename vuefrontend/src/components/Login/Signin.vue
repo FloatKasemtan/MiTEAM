@@ -40,6 +40,11 @@
       </v-btn>
       <a class="forgetLink" href="/forget">forget password?</a>
     </div>
+    <v-dialog v-model="wrongUser" width="300px">
+      <v-alert type="error" elevation="10" class="mb-0" border="bottom"
+        >Your username or password are incorrect!</v-alert
+      >
+    </v-dialog>
   </div>
 </template>
 
@@ -58,6 +63,7 @@ export default {
     username: "",
     showPass: false,
     password: "",
+    wrongUser:false,
   }),
   methods: {
     async validate() {
@@ -67,15 +73,15 @@ export default {
           pass: this.password,
         });
         Vue.$cookies.set("JWT", response.data.token);
+
         if (response.data.loginStatus) {
-          // this.$router.push("/dashboard");
           location.href = "/dashboard";
           Vue.$cookies.set("USERDATA", response.data.userDetail);
           Vue.$cookies.set("ISLOGIN", response.data.loginStatus);
           this.$store.dispatch("loadUser");
         } else {
           this.password = this.username = "";
-          this.$emit("wrongUser");
+          this.wrongUser = true;
         }
       }
     },

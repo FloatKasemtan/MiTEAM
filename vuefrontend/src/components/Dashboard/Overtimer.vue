@@ -10,6 +10,7 @@
       :sort-by="['ot']"
       :sort-desc="[true]"
       :items-per-page="5"
+      height="30vh"
     >
     </v-data-table>
   </v-card>
