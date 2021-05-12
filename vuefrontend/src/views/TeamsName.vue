@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import axios from '@/axios/axios'
 export default {
   name: "TeamsName",
   components: {
