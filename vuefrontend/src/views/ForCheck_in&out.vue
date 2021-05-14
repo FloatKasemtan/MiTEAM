@@ -1,17 +1,4 @@
 <template>
-<<<<<<< HEAD
-  
-</template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-=======
   <div class="main">
     <div>
       <v-menu offset-y>
@@ -71,6 +58,16 @@ export default {
         >Please choose employee first</v-alert
       >
     </v-dialog>
+    <v-dialog v-model="regisSuccess" width="300px">
+      <v-alert type="success" elevation="10" class="mb-0" border="bottom"
+        >Check Successful!</v-alert
+      >
+    </v-dialog>
+    <v-dialog v-model="dialogError" width="300px">
+      <v-alert type="error" elevation="10" class="mb-0" border="bottom"
+        >You have already check-in or check-out!</v-alert
+      >
+    </v-dialog>
   </div>
 </template>
 
@@ -84,6 +81,8 @@ export default {
     time_out: "00:00",
     employee_id: "",
     dialogWarning: false,
+    regisSuccess: false,
+    dialogError: false,
   }),
   methods: {
     async check_in(time) {
@@ -97,7 +96,11 @@ export default {
             "&check_in_time=" +
             Date.parse(thisDay)
         );
-        console.log(response.data);
+        if (response.data.SUCCESS) {
+          this.success = true;
+        } else {
+          this.dialogError = true;
+        }
       } else {
         this.dialogWarning = true;
       }
@@ -107,12 +110,17 @@ export default {
         var thisDay = new Date();
         thisDay.setHours(time.substring(0, 2));
         thisDay.setMinutes(time.substring(3, 5));
-        await axios.post(
+        const response = await axios.post(
           "/check/out?employee_id=" +
             this.employee_id +
             "&check_out_time=" +
             Date.parse(thisDay)
         );
+        if (response.data.SUCCESS) {
+          this.success = true;
+        } else {
+          this.dialogError = true;
+        }
       } else {
         this.dialogWarning = true;
       }
@@ -121,7 +129,6 @@ export default {
   async mounted() {
     const response = await axios.get("/employee/listForOwner");
     this.employees = await response.data.employees;
-    console.log(response.data);
   },
 };
 </script>
@@ -133,5 +140,4 @@ export default {
   align-items: center;
   height: 80vh;
 }
->>>>>>> bb697ab576bcca19502678136adda43824c37b60
 </style>
