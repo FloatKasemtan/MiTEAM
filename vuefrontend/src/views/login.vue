@@ -44,7 +44,7 @@
       >
     </v-dialog>
     <v-dialog v-model="passMatch" width="300px">
-      <v-alert type="error" elevation="10" class="mb-0" border="bottom"
+      <v-alert type="error" elevation="10" class="mb-0" border="bottom" 
         >Your password not match!</v-alert
       >
     </v-dialog>
