@@ -18,7 +18,11 @@
       </div>
     </div>
     <Teamslist :seachTeam="seachTeam" />
-    <v-dialog transition="dialog-bottom-transition" v-model="dialog" max-width="500px">
+    <v-dialog
+      transition="dialog-bottom-transition"
+      v-model="dialog"
+      max-width="500px"
+    >
       <v-card>
         <v-card-text>
           <h1 class="pt-5">Create new Team</h1>
@@ -56,7 +60,7 @@
 </template>
 
 <script>
-import axios from '@/axios/axios'
+import axios from "@/axios/axios";
 export default {
   name: "TeamsName",
   components: {

@@ -23,7 +23,7 @@ public class Check_in {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO check_in(employee_id, check_in_time)" + " VALUES (?, ?)");
 
             preparedStatement.setInt(1, employee_id);
-            preparedStatement.setTimestamp(2, new Timestamp(check_in_time*1000));
+            preparedStatement.setTimestamp(2, new Timestamp(check_in_time));
 
             preparedStatement.executeUpdate();
             res.put("SUCCESS", true);
