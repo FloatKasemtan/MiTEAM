@@ -57,7 +57,12 @@ const routes = [{
         component: () =>
             import ("../views/EventsList.vue"),
     },
-
+    {
+        path: "/checkinout",
+        name: "checkinout",
+        component: () =>
+            import ("../views/ForCheck_in&out.vue"),
+    },
 ];
 
 const router = new VueRouter({

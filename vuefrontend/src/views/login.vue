@@ -14,7 +14,6 @@
           <Signin
             :nameRules="nameRules"
             :passRules="passRules"
-            @wrongUser="wrongUser = true"
           />
         </v-tab-item>
         <v-tab-item>
@@ -38,11 +37,7 @@
     >
       <v-img src="@/images/animation_640.gif"></v-img>
     </v-card>
-    <v-dialog v-model="wrongUser" width="300px">
-      <v-alert type="error" elevation="10" class="mb-0" border="bottom"
-        >Your username or password are incorrect!</v-alert
-      >
-    </v-dialog>
+    
     <v-dialog v-model="passMatch" width="300px">
       <v-alert type="error" elevation="10" class="mb-0" border="bottom" 
         >Your password not match!</v-alert
@@ -77,7 +72,6 @@ export default {
   name: "login",
   data: () => ({
     valid: true,
-    wrongUser: false,
     passMatch: false,
     showPass: false,
     regisSuccess: false,

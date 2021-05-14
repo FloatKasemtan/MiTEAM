@@ -52,7 +52,12 @@
         </v-list-item>
       </template>
       <v-list>
-        <v-list-item v-for="item in items" :key="item.title" :to="item.to" @click="location.reload();">
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          :to="item.to"
+          @click="location.reload()"
+        >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -63,7 +68,12 @@
         </v-list-item>
       </v-list>
 
-      <template #append>
+      <template #append
+        ><div>
+          <v-btn to="/checkinout" block
+            ><v-icon>mdi-account-check</v-icon></v-btn
+          >
+        </div>
         <div>
           <v-btn href="/" @click="logout" block color="red">
             <v-icon>mdi-logout</v-icon>
