@@ -51,6 +51,7 @@ public class ForgetPass {
                         javaMailSender.send(msg);
                         res.put("success", true);
                         res.put("text", "Please check your email for verification code");
+                        System.out.println(generatedString);
                         return res;
                     } else {
                         res.put("success", false);

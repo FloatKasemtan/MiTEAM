@@ -50,7 +50,7 @@
     </v-dialog>
     <v-dialog v-model="emailUsed" width="300px">
       <v-alert type="warning" elevation="10" class="mb-0" border="bottom"
-        >This email already been used!</v-alert
+        >This username or email already been used!</v-alert
       >
     </v-dialog>
     <v-dialog v-model="fatalError" width="300px">

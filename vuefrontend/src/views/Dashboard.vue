@@ -8,7 +8,7 @@
   >
     <div class="mx-8">
       <Header :pageName="pageName" />
-      <v-row>
+      <v-row >
         <v-col cols="12" md="4">
           <Schedule />
         </v-col>
@@ -55,4 +55,7 @@ export default {
 </script>
 
 <style scoped>
+  .row1{
+    height: 50vh;
+  }
 </style>

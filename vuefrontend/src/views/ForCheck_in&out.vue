@@ -63,9 +63,9 @@
         >Check Successful!</v-alert
       >
     </v-dialog>
-    <v-dialog v-model="dialogError" width="300px">
+    <v-dialog v-model="dialogError" width="420px">
       <v-alert type="error" elevation="10" class="mb-0" border="bottom"
-        >You have already check-in or check-out!</v-alert
+        >This member have already check-in or check-out!</v-alert
       >
     </v-dialog>
   </div>
@@ -114,7 +114,9 @@ export default {
           "/check/out?employee_id=" +
             this.employee_id +
             "&check_out_time=" +
-            Date.parse(thisDay)
+            Date.parse(thisDay) +
+            "&thisDate=" +
+            Date.parse(new Date().toISOString().substr(0, 10))
         );
         if (response.data.SUCCESS) {
           this.success = true;

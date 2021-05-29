@@ -21,12 +21,7 @@ public class Check_in {
         Map<String, Object> res = new HashMap<>();
         try {
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement psforcheck = connection.prepareStatement("SELECT employee_id FROM check_in WHERE employee_id = ?");
-            psforcheck.setInt(1,employee_id);
-            ResultSet rs = psforcheck.executeQuery();
-            if(rs.next()){
-                res.put("SUCCESS", false);
-            }else {
+
                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO check_in(employee_id, check_in_time)" + " VALUES (?, ?)");
 
                 preparedStatement.setInt(1, employee_id);
@@ -34,7 +29,7 @@ public class Check_in {
 
                 preparedStatement.executeUpdate();
                 res.put("SUCCESS", true);
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
             res.put("error", false);

@@ -21,8 +21,9 @@ public class EventAdd {
         String owner = JwtUtil.parseToken(token.split(" ")[1]);
         try {
             Connection connection = SQLconnector.getConnection();
-            PreparedStatement psForTeamId = connection.prepareStatement("SELECT * FROM team WHERE name = ?");
+            PreparedStatement psForTeamId = connection.prepareStatement("SELECT * FROM team WHERE name = ? AND owner = ?");
             psForTeamId.setString(1,team_name);
+            psForTeamId.setString(2,owner);
             ResultSet rs = psForTeamId.executeQuery();
             rs.next();
             int team_id = rs.getInt("team_id");

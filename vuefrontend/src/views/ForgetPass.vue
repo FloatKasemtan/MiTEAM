@@ -59,7 +59,9 @@
               <div class="float-right">
                 <div v-if="!resend">Time left : {{ min }}:{{ sec }}</div>
                 <div v-else>
-                  <a @click="enterEmail">resend<v-icon class="ml-1">mdi-restart</v-icon></a>
+                  <a @click="enterEmail"
+                    >resend<v-icon class="ml-1">mdi-restart</v-icon></a
+                  >
                 </div>
               </div>
             </div>
@@ -86,6 +88,11 @@
         >Password have successfully changed!</v-alert
       >
     </v-dialog>
+    <v-dialog v-model="tokenError" width="300px">
+      <v-alert type="warning" elevation="10" class="mb-0" border="bottom"
+        >Verification code is not correct!</v-alert
+      >
+    </v-dialog>
   </div>
 </template>
 
@@ -97,10 +104,11 @@ export default {
   },
   data() {
     return {
-      pageName: "Forgot password",
+      pageName: "Forget password",
       valid: true,
       successDialog: false,
       noEmailDialog: false,
+      tokenError: false,
       warningDialog: false,
       email: "",
       token: "",
@@ -151,9 +159,14 @@ export default {
           new_pass: this.new_pass,
         });
         this.loading = false;
-        this.successDialog = true;
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (response.data.success) {
+          this.successDialog = true;
+          await new Promise((resolve) => setTimeout(resolve, 1000));
         location.href = "/";
+        }else{
+          this.tokenError = true;
+        }
+        
       }
     },
     backward() {

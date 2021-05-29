@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="rounded-xl" color="#f6f6f6" height="100%">
+    <v-card class="rounded-xl" color="#f6f6f6" height="40vh">
       <v-card-title class="ml-8 dash-topic"
         >Overall Work Progress of each team</v-card-title
       >
